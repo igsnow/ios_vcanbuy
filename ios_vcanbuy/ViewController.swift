@@ -3,7 +3,7 @@
 //  ios_vcanbuy
 //
 //  Created by 张志勇 on 2019/12/25.
-//  Copyright © 2019 张志勇. All rights reserved.
+//  Copyright © 2019 vcanbuy. All rights reserved.
 //
 
 import UIKit
