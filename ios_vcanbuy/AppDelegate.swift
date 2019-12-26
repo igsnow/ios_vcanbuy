@@ -16,17 +16,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        //用于判断是否是第一次启动应用
+        // 用于判断是否是第一次启动应用
         if (!(UserDefaults.standard.bool(forKey: "first"))) {
             UserDefaults.standard.set(true, forKey:"first")
             print("is first")
             let guideViewController = GuideController()
-            self.window!.rootViewController=guideViewController;
+            self.window!.rootViewController = guideViewController;
         }
-        print("ok")
         
         let guideViewController = GuideController()
-        self.window!.rootViewController=guideViewController;
+        self.window!.rootViewController = guideViewController;
         
         return true
     }
