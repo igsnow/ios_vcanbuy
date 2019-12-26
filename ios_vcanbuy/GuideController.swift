@@ -8,59 +8,51 @@
 
 import UIKit
 
-class GuideController: UIViewController{
-    
-    
+class GuideController: UIViewController,UIScrollViewDelegate {
     
     //页面数量
-    let numOfPages = 3
+    var numOfPages = 4
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let frame = self.view.bounds
         //scrollView的初始化
-        let scroll = UIScrollView()
-        scroll.frame = self.view.bounds
-        
+        let scrollView = UIScrollView()
+        scrollView.frame = self.view.bounds
+        scrollView.delegate = self
         //为了能让内容横向滚动，设置横向内容宽度为3个页面的宽度总和
-        scroll.contentSize = CGSize(width:frame.size.width * CGFloat(numOfPages),
-                                    height:frame.size.height)
-        
-        
-        scroll.isPagingEnabled = true
-        scroll.showsHorizontalScrollIndicator = false
-        scroll.showsVerticalScrollIndicator = false
-        
-        
-        
+        scrollView.contentSize = CGSize(width:frame.size.width * CGFloat(numOfPages),
+                                        height:frame.size.height)
+        print("\(frame.size.width*CGFloat(numOfPages)),\(frame.size.height)")
+        scrollView.isPagingEnabled = true
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.scrollsToTop = false
         for i in 0..<numOfPages{
-            let img1 = UIImageView(image: UIImage(named:"image\(i+1)"))
-            img1.frame = CGRect(x:frame.size.width*CGFloat(i), y:CGFloat(0),
-                                width:frame.size.width, height:frame.size.height)
-            scroll.addSubview(img1)
+            let imgfile = "GUIDE-\(Int(i+1)).png"
+            print(imgfile)
+            let image = UIImage(named:"\(imgfile)")
+            let imgView = UIImageView(image: image)
+            imgView.frame = CGRect(x:frame.size.width*CGFloat(i), y:CGFloat(0),
+                                   width:frame.size.width, height:frame.size.height)
+            scrollView.addSubview(imgView)
         }
-        
-        let button = UIButton()
-        button.frame = CGRect(x:frame.size.width*2.6, y:frame.size.height*0.9,
-                              width:frame.size.width/2, height:frame.size.height/8)
-        button.setImage(UIImage(named:"next"), for: .normal)
-        scroll.addSubview(button)
-        button.addTarget(self, action:#selector(tapped), for:.touchUpInside)
-        
-        self.view.addSubview(scroll)
-        
-        
-        
+        scrollView.contentOffset = CGPoint.zero
+        self.view.addSubview(scrollView)
     }
     
-    @objc func tapped(){
-        let sb = UIStoryboard(name: "Main", bundle:nil)
-        let vc = sb.instantiateViewController(withIdentifier: "VC") as! ViewController
-        self.present(vc, animated: true, completion: nil)
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        print("scrolled:\(scrollView.contentOffset)")
+        let twidth = CGFloat(numOfPages-1) * self.view.bounds.size.width
+        //如果在最后一个页面继续滑动的话就会跳转到主页面
+        if scrollView.contentOffset.x > twidth {
+            //            let mainStoryboard = UIStoryboard(name:"Main", bundle:nil)
+            //            let viewController = mainStoryboard.instantiateInitialViewController()
+            //           self.present(MainVC(), animated: true, completion: nil)
+            let rootVC = UIApplication.shared.delegate as! AppDelegate
+            let mainController = ViewController()
+
+            rootVC.window?.rootViewController = mainController
+        }
     }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
 }

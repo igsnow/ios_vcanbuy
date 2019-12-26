@@ -24,6 +24,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window!.rootViewController=guideViewController;
         }
         print("ok")
+        
+        let guideViewController = GuideController()
+        self.window!.rootViewController=guideViewController;
+        
         return true
     }
 
