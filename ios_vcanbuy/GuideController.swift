@@ -23,14 +23,12 @@ class GuideController: UIViewController,UIScrollViewDelegate {
         // 为了能让内容横向滚动，设置横向内容宽度为3个页面的宽度总和
         scrollView.contentSize = CGSize(width:frame.size.width * CGFloat(numOfPages),
                                         height:frame.size.height)
-        print("\(frame.size.width*CGFloat(numOfPages)),\(frame.size.height)")
         scrollView.isPagingEnabled = true
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
         scrollView.scrollsToTop = false
         for i in 1...numOfPages{
             let imgfile = "GUIDE-\(Int(i)).png"
-            print(imgfile)
             let image = UIImage(named:"\(imgfile)")
             let imgView = UIImageView(image: image)
             imgView.frame = CGRect(x:frame.size.width*CGFloat(i - 1), y:CGFloat(0),
@@ -50,7 +48,6 @@ class GuideController: UIViewController,UIScrollViewDelegate {
     
     // 点击第四张图的按钮跳转到首页
     @objc func closeGuide(){
-        print("go home page")
         let rootVC = UIApplication.shared.delegate as! AppDelegate
         let mainController = ViewController()
         rootVC.window?.rootViewController = mainController
