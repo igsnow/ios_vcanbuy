@@ -16,6 +16,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        //用于判断是否是第一次启动应用
+        if (!(UserDefaults.standard.bool(forKey: "first"))) {
+            UserDefaults.standard.set(true, forKey:"first")
+            print("is first")
+            let guideViewController = GuideController()
+            self.window!.rootViewController=guideViewController;
+        }
+        print("ok")
         return true
     }
 
@@ -40,7 +48,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
-
+    
 }
 
