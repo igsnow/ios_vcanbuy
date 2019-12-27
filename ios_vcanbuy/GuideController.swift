@@ -37,7 +37,7 @@ class GuideController: UIViewController,UIScrollViewDelegate {
             if i == numOfPages {
                 let button = UIButton.init(frame: CGRect.init(x:CGFloat(frame.size.width) * CGFloat(i - 1) , y: frame.size.height-150, width: frame.size.width, height: 100))
                 button.alpha = 2;
-                button.backgroundColor=UIColor.black;
+                button.backgroundColor=UIColor.white;
                 button.addTarget(self, action: #selector(closeGuide), for: .touchUpInside);
                 scrollView.addSubview(button);
             }

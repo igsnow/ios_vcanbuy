@@ -13,23 +13,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        // 用于判断是否是第一次启动应用
-        if (!(UserDefaults.standard.bool(forKey: "first"))) {
-            UserDefaults.standard.set(true, forKey:"first")
-            print("is first")
-            let guideVC = GuideController()
-            self.window!.rootViewController = guideVC;
-        }
         
-//        let guideVC = GuideController()
-//        self.window!.rootViewController = guideVC;
-        
-        
-        //改为从storyboard启动
-        //创建窗口
+        // 改为从storyboard启动
+        // 创建窗口
+        // 先进入闪图页
         window = UIWindow(frame:UIScreen.main.bounds)
         let splashVC = SplashController()
         window?.rootViewController = splashVC
