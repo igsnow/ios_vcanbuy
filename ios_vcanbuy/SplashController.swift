@@ -25,15 +25,19 @@ class SplashController: UIViewController {
         let data = try! Data(contentsOf: url!)
         let image = UIImage(data: data)
         let imgView = UIImageView(image:image)
-        
-        // 获取本地图片
-//         let imgfile = "splash.jpeg"
-//         let image = UIImage(named:"\(imgfile)")
-//         let imgView = UIImageView(image: image)
         imgView.frame = CGRect(x:frame.size.width*CGFloat(0), y:CGFloat(0),
                                width:frame.size.width, height:frame.size.height)
         self.view.addSubview(imgView)
         
+        // 给闪图底部添加logo图
+        let imgfile = "logo.png"
+        let logoImg = UIImage(named:"\(imgfile)")
+        let logoView = UIImageView(image: logoImg)
+        logoView.frame = CGRect(x:200, y:200,
+                               width:200, height:50)
+        self.view.addSubview(logoView)
+        
+        // 添加右上角倒计时按钮
         timeButton = UIButton.init(frame: CGRect.init(x:frame.size.width-70 , y: 25, width: 55, height: 25))
         timeButton.setTitle("5s skip", for: .normal)
         timeButton.backgroundColor = UIColor(red: 128/255, green: 128/255, blue: 128/255, alpha: 0.85)
