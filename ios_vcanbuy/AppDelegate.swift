@@ -35,8 +35,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = splashVC
         window?.makeKeyAndVisible()
         
-        
-        
         return true
     }
 

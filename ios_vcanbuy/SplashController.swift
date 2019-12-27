@@ -26,19 +26,15 @@ class SplashController: UIViewController {
                                width:frame.size.width, height:frame.size.height)
         self.view.addSubview(imgView)
         
-        timeButton = UIButton.init(frame: CGRect.init(x:CGFloat(frame.size.width) * CGFloat(0) , y: frame.size.height-100, width: 80, height: 40))
-//        timeButton.alpha = 2;
-//        timeButton.backgroundColor=UIColor.green;
-        
+        timeButton = UIButton.init(frame: CGRect.init(x:frame.size.width-70 , y: 35, width: 55, height: 25))
         timeButton.setTitle("5s skip", for: .normal)
         timeButton.backgroundColor = UIColor.lightGray
         timeButton.setTitleColor(UIColor.white, for: .normal)
         timeButton.clipsToBounds = true
-        timeButton.layer.cornerRadius = 20
+        timeButton.layer.cornerRadius = 12
+        timeButton.titleLabel?.font = UIFont.systemFont(ofSize: 13)
         timeButton.addTarget(self, action: #selector(closeGuide), for: .touchUpInside);
         self.view.addSubview(timeButton);
-        
-        
     }
     
     override func viewDidLoad() {
@@ -47,23 +43,11 @@ class SplashController: UIViewController {
         print("ok")
         // Do any additional setup after loading the view.
         
-//                timeButton.setTitle("5s后跳过", for: .normal)
-//        timeButton.backgroundColor = UIColor.lightGray
-//        timeButton.setTitleColor(UIColor.white, for: .normal)
-        //        timeButton.clipsToBounds = true
-        //        timeButton.layer.cornerRadius = 20
-        
         //这里加个延迟参数
         DispatchQueue.main.asyncAfter(deadline:DispatchTime.now() + time){
-            
             let rootVC = UIApplication.shared.delegate as! AppDelegate
             let mainController = ViewController()
-//            rootVC.window?.rootViewController = mainController
-            
-            
-//            let sb = UIStoryboard(name:"Main",bundle:nil)
-//            let rootVC = sb.instantiateInitialViewController()
-//            UIApplication.shared.keyWindow?.rootViewController = rootVC
+            rootVC.window?.rootViewController = mainController
         }
         
         //倒计时
@@ -83,18 +67,6 @@ class SplashController: UIViewController {
         rootVC.window?.rootViewController = mainController
     }
     
-    //点击直接跳转
-    @IBAction func pushAction(_ sender: Any) {
-//        let sb = UIStoryboard(name:"Main",bundle:nil)
-//        let rootVC = sb.instantiateInitialViewController()
-//        UIApplication.shared.keyWindow?.rootViewController = rootVC
-        
-        
-        let rootVC = UIApplication.shared.delegate as! AppDelegate
-        let mainController = ViewController()
-        rootVC.window?.rootViewController = mainController
-        
-    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
