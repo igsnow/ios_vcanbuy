@@ -10,7 +10,7 @@ import UIKit
 
 class SplashController: UIViewController {
     @IBOutlet weak var bigImg: UIImageView!
-    @IBOutlet weak var timeButton: UIButton!
+    @IBOutlet var timeButton: UIButton!
     //延迟5s
     private var time:TimeInterval = 5.0
     
@@ -25,6 +25,20 @@ class SplashController: UIViewController {
         imgView.frame = CGRect(x:frame.size.width*CGFloat(0), y:CGFloat(0),
                                width:frame.size.width, height:frame.size.height)
         self.view.addSubview(imgView)
+        
+        timeButton = UIButton.init(frame: CGRect.init(x:CGFloat(frame.size.width) * CGFloat(0) , y: frame.size.height-100, width: 80, height: 40))
+//        timeButton.alpha = 2;
+//        timeButton.backgroundColor=UIColor.green;
+        
+        timeButton.setTitle("5s skip", for: .normal)
+        timeButton.backgroundColor = UIColor.lightGray
+        timeButton.setTitleColor(UIColor.white, for: .normal)
+        timeButton.clipsToBounds = true
+        timeButton.layer.cornerRadius = 20
+        timeButton.addTarget(self, action: #selector(closeGuide), for: .touchUpInside);
+        self.view.addSubview(timeButton);
+        
+        
     }
     
     override func viewDidLoad() {
@@ -44,7 +58,7 @@ class SplashController: UIViewController {
             
             let rootVC = UIApplication.shared.delegate as! AppDelegate
             let mainController = ViewController()
-            rootVC.window?.rootViewController = mainController
+//            rootVC.window?.rootViewController = mainController
             
             
 //            let sb = UIStoryboard(name:"Main",bundle:nil)
@@ -53,13 +67,20 @@ class SplashController: UIViewController {
         }
         
         //倒计时
-//        cuntdownTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
-//
+        cuntdownTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTime), userInfo: nil, repeats: true)
+
     }
     
     @objc func updateTime(){
         time -= 1
-        timeButton.setTitle(String(format:"%.fs 后跳过",time), for: .normal)
+        timeButton.setTitle(String(format:"%.fs skip",time), for: .normal)
+    }
+    
+    // 点击点击按钮直接跳转到首页
+    @objc func closeGuide(){
+        let rootVC = UIApplication.shared.delegate as! AppDelegate
+        let mainController = ViewController()
+        rootVC.window?.rootViewController = mainController
     }
     
     //点击直接跳转
