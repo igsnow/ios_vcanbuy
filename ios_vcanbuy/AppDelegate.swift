@@ -20,12 +20,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if (!(UserDefaults.standard.bool(forKey: "first"))) {
             UserDefaults.standard.set(true, forKey:"first")
             print("is first")
-            let guideViewController = GuideController()
-            self.window!.rootViewController = guideViewController;
+            let guideVC = GuideController()
+            self.window!.rootViewController = guideVC;
         }
         
-//        let guideViewController = GuideController()
-//        self.window!.rootViewController = guideViewController;
+//        let guideVC = GuideController()
+//        self.window!.rootViewController = guideVC;
+        
+        
+        //改为从storyboard启动
+        //创建窗口
+        window = UIWindow(frame:UIScreen.main.bounds)
+        let splashVC = SplashController()
+        window?.rootViewController = splashVC
+        window?.makeKeyAndVisible()
+        
+        
         
         return true
     }

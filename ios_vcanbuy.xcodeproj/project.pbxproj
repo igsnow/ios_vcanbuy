@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4253B9E223B5994100176B7D /* SplashController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253B9E123B5994100176B7D /* SplashController.swift */; };
 		4297A61723B36DF500D75D5E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4297A61623B36DF500D75D5E /* AppDelegate.swift */; };
 		4297A61923B36DF500D75D5E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4297A61823B36DF500D75D5E /* ViewController.swift */; };
 		4297A61C23B36DF500D75D5E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4297A61A23B36DF500D75D5E /* Main.storyboard */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4253B9E123B5994100176B7D /* SplashController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashController.swift; sourceTree = "<group>"; };
 		4297A61323B36DF500D75D5E /* ios_vcanbuy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ios_vcanbuy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4297A61623B36DF500D75D5E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4297A61823B36DF500D75D5E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				4297A61F23B36DF600D75D5E /* LaunchScreen.storyboard */,
 				4297A62223B36DF600D75D5E /* Info.plist */,
 				42B02A6F23B4B24600516FF0 /* GuideController.swift */,
+				4253B9E123B5994100176B7D /* SplashController.swift */,
 			);
 			path = ios_vcanbuy;
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4297A61923B36DF500D75D5E /* ViewController.swift in Sources */,
+				4253B9E223B5994100176B7D /* SplashController.swift in Sources */,
 				42B02A7023B4B24600516FF0 /* GuideController.swift in Sources */,
 				4297A61723B36DF500D75D5E /* AppDelegate.swift in Sources */,
 			);
