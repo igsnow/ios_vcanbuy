@@ -33,8 +33,10 @@ class SplashController: UIViewController {
         let imgfile = "logo.png"
         let logoImg = UIImage(named:"\(imgfile)")
         let logoView = UIImageView(image: logoImg)
-        logoView.frame = CGRect(x:200, y:200,
-                               width:200, height:50)
+        let logoFrame = logoView.bounds
+        // 水平居中
+        logoView.frame = CGRect(x: CGFloat(frame.size.width - logoFrame.size.width * 1.5) / CGFloat(2), y:frame.size.height - 100,
+                                width:logoFrame.size.width * 1.5, height:logoFrame.size.height * 1.5)
         self.view.addSubview(logoView)
         
         // 添加右上角倒计时按钮
@@ -51,7 +53,6 @@ class SplashController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // self.view.backgroundColor = UIColor.red
         print("load view")
         // Do any additional setup after loading the view.
         
