@@ -21,16 +21,31 @@ class SplashController: UIViewController {
         let frame = self.view.bounds
         
         // 获取网络图片
-        let url = URL(string:"https://res.vcanbuy.com/misc/93b2c9fbb3401e66e29a345b5bff85bf.png")
-        let data = try! Data(contentsOf: url!)
-        let image = UIImage(data: data)
-        let imgView = UIImageView(image:image)
-        imgView.frame = CGRect(x:frame.size.width*CGFloat(0), y:CGFloat(0),
-                               width:frame.size.width, height:frame.size.height)
-        self.view.addSubview(imgView)
+        let urlStr = NSURL(string: "https://res.vcanbuy.com/misc/93b2c9fbb3401e66e29a345b5bff85bf.png")
+        let request = NSMutableURLRequest(url: urlStr! as URL);
+        // 设置缓存策略，有缓存使用缓存，无缓存请求服务器
+        request.cachePolicy = .returnCacheDataElseLoad
+        let cache = URLCache.shared;
+        let response = cache.cachedResponse(for: request as URLRequest);
+        if(response == nil){
+            print("no image cache");
+            let data = NSData(contentsOf: urlStr! as URL)
+            let image = UIImage(data: data! as Data)
+            let imageView = UIImageView(image: image)
+            imageView.frame = CGRect(x:frame.size.width*CGFloat(0), y:CGFloat(0),
+                                     width:frame.size.width, height:frame.size.height)
+            self.view.addSubview(imageView)
+        }else{
+            print("has image cache");
+            let image = UIImage(data: (response?.data)!)
+            let imageView = UIImageView(image: image)
+            imageView.frame = CGRect(x:frame.size.width*CGFloat(0), y:CGFloat(0),
+                                     width:frame.size.width, height:frame.size.height)
+            self.view.addSubview(imageView)
+        }
         
         // 给闪图底部添加logo图
-        let imgfile = "logo.png"
+        let imgfile = "logo"
         let logoImg = UIImage(named:"\(imgfile)")
         let logoView = UIImageView(image: logoImg)
         let logoFrame = logoView.bounds

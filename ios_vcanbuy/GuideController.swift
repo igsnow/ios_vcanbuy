@@ -28,7 +28,7 @@ class GuideController: UIViewController,UIScrollViewDelegate {
         scrollView.showsVerticalScrollIndicator = false
         scrollView.scrollsToTop = false
         for i in 1...numOfPages{
-            let imgfile = "GUIDE-\(Int(i)).png"
+            let imgfile = "GUIDE-\(Int(i))"
             let image = UIImage(named:"\(imgfile)")
             let imgView = UIImageView(image: image)
             imgView.frame = CGRect(x:frame.size.width*CGFloat(i - 1), y:CGFloat(0),
