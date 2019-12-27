@@ -21,7 +21,7 @@ class ViewController: UIViewController, WKUIDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let myURL = URL(string:"http://m.vcanbuy.com")
+        let myURL = URL(string:"https://www.bilibili.com")
         let myRequest = URLRequest(url: myURL!)
         webView.load(myRequest)
     }}
