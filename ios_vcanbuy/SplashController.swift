@@ -55,7 +55,7 @@ class SplashController: UIViewController {
         self.view.addSubview(logoView)
         
         // 添加右上角倒计时按钮
-        timeButton = UIButton.init(frame: CGRect.init(x:frame.size.width-70 , y: 25, width: 55, height: 25))
+        timeButton = UIButton.init(frame: CGRect.init(x:frame.size.width-70 , y: 28, width: 55, height: 25))
         timeButton.setTitle("5s skip", for: .normal)
         timeButton.backgroundColor = UIColor(red: 128/255, green: 128/255, blue: 128/255, alpha: 0.85)
         timeButton.setTitleColor(UIColor.white, for: .normal)
