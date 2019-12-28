@@ -69,6 +69,9 @@ class SplashController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("load view")
+        // 启动图延长800毫秒后再加载闪图，不然系统默认时间太短，感觉直接进入闪图了
+        Thread.sleep(forTimeInterval: 0.8)
+
         // Do any additional setup after loading the view.
         
         // 倒计时
