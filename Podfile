@@ -6,6 +6,8 @@ target 'ios_vcanbuy' do
   use_frameworks!
 
   # Pods for ios_vcanbuy
+  pod 'RxSwift'
+  pod 'RxCocoa'
   pod 'SwiftyJSON'
 
 
