@@ -12,6 +12,12 @@ import RxSwift
 import RxCocoa
 import SwiftyJSON
 
+struct VCBText {
+    static var confirm: String {
+           return NSLocalizedString("confirm", comment: "")
+    }
+}
+
 class ViewController: UIViewController, WKUIDelegate , WKScriptMessageHandler{
     
     var webView: WKWebView!
@@ -30,7 +36,7 @@ class ViewController: UIViewController, WKUIDelegate , WKScriptMessageHandler{
         
 //        let myURL = URL(string:"http://m.vcanbuy.com")
 //        let myURL = URL(string:"http://120.27.228.29:8081")
-        let myURL = URL(string:"http://169.254.23.141:1017")
+        let myURL = URL(string:"http://169.254.88.144:1017")
 
         let myRequest = URLRequest(url: myURL!)
         webView.load(myRequest)
@@ -43,10 +49,18 @@ class ViewController: UIViewController, WKUIDelegate , WKScriptMessageHandler{
         self.setupNotificationHandler()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        let str:String = UIPasteboard.general.string ?? "";
+        if !str.isEmpty{
+            self.nativeCall(function: "onClipboardListener",params:str);
+        }
+    }
+    
     // swift给js广播消息
     private func setupNotificationHandler() {
         NotificationCenter.default.rx.notification(UIApplication.didBecomeActiveNotification).takeUntil(self.rx.deallocated).subscribe({ (value) in
                    let str:String = UIPasteboard.general.string ?? "";
+                    print("clipboard: ",str);
                    if !str.isEmpty{
                        self.nativeCall(function: "onClipboardListener",params:str);
                    }
@@ -88,4 +102,29 @@ class ViewController: UIViewController, WKUIDelegate , WKScriptMessageHandler{
     
 }
 
+// 代理以便能够执行webview中js的alert
+extension ViewController {
+    
+    func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
+        if !webView.isLoading && message != "" {
+            let alert = UIAlertController.init(title: nil, message: message, preferredStyle: .alert)
+            let confirmAction = UIAlertAction.init(title: VCBText.confirm, style: .default) { (action) in
+                completionHandler()
+            }
+            alert.addAction(confirmAction)
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            completionHandler()
+        }
+    }
+    
+    func webView(_ webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (Bool) -> Void) {
+        completionHandler(true)
+        print(message)
+    }
+    
+    func webView(_ webView: WKWebView, runJavaScriptTextInputPanelWithPrompt prompt: String, defaultText: String?, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (String?) -> Void) {
+        print(prompt)
+    }
+}
 
