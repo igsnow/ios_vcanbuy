@@ -103,28 +103,28 @@ class ViewController: UIViewController, WKUIDelegate , WKScriptMessageHandler{
 }
 
 // 代理以便能够执行webview中js的alert
-extension ViewController {
-    
-    func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
-        if !webView.isLoading && message != "" {
-            let alert = UIAlertController.init(title: nil, message: message, preferredStyle: .alert)
-            let confirmAction = UIAlertAction.init(title: VCBText.confirm, style: .default) { (action) in
-                completionHandler()
-            }
-            alert.addAction(confirmAction)
-            self.present(alert, animated: true, completion: nil)
-        } else {
-            completionHandler()
-        }
-    }
-    
-    func webView(_ webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (Bool) -> Void) {
-        completionHandler(true)
-        print(message)
-    }
-    
-    func webView(_ webView: WKWebView, runJavaScriptTextInputPanelWithPrompt prompt: String, defaultText: String?, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (String?) -> Void) {
-        print(prompt)
-    }
-}
+//extension ViewController {
+//
+//    func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
+//        if !webView.isLoading && message != "" {
+//            let alert = UIAlertController.init(title: nil, message: message, preferredStyle: .alert)
+//            let confirmAction = UIAlertAction.init(title: VCBText.confirm, style: .default) { (action) in
+//                completionHandler()
+//            }
+//            alert.addAction(confirmAction)
+//            self.present(alert, animated: true, completion: nil)
+//        } else {
+//            completionHandler()
+//        }
+//    }
+//
+//    func webView(_ webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (Bool) -> Void) {
+//        completionHandler(true)
+//        print(message)
+//    }
+//
+//    func webView(_ webView: WKWebView, runJavaScriptTextInputPanelWithPrompt prompt: String, defaultText: String?, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (String?) -> Void) {
+//        print(prompt)
+//    }
+//}
 
