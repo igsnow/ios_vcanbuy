@@ -34,6 +34,9 @@ class ViewController: UIViewController, WKUIDelegate , WKScriptMessageHandler{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // 清除缓存
+        self.clearCache()
+        
 //        let myURL = URL(string:"http://m.vcanbuy.com")
         let myURL = URL(string:"http://120.27.228.29:8081")
 //        let myURL = URL(string:"http://169.254.88.144:1017")
@@ -97,6 +100,34 @@ class ViewController: UIViewController, WKUIDelegate , WKScriptMessageHandler{
             UIPasteboard.general.string = "";
         default:
             return
+        }
+    }
+    
+    // 清除webview对h5页面的缓存
+    func clearCache() {
+        // iOS9.0以上使用的方法
+        if #available(iOS 9.0, *) {
+            print("ios9+++")
+            let dataStore = WKWebsiteDataStore.default()
+            dataStore.fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes(), completionHandler: { (records) in
+                for record in records{
+                    // 清除本站的cookie
+                    if record.displayName.contains("120.27.228.29"){
+                        print("M站缓存")
+                        //这个判断注释掉的话是清理所有的cookie
+                        WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {
+                            // 清除成功
+                            print("清除成功\(record)")
+                        })
+                    }
+                }
+            })
+        } else {
+            print("ios8+++")
+            // ios8.0以上使用的方法
+            let libraryPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.libraryDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).first
+            let cookiesPath = libraryPath! + "/Cookies"
+            try!FileManager.default.removeItem(atPath: cookiesPath)
         }
     }
     
