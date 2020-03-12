@@ -572,9 +572,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: VCANBUY COMPANY LIMITED (B94HYA9BJ7)";
+				CODE_SIGN_IDENTITY = "Apple Distribution: VCANBUY COMPANY LIMITED (B94HYA9BJ7)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = B94HYA9BJ7;
 				INFOPLIST_FILE = ios_vcanbuy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -582,10 +582,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.05;
-				PRODUCT_BUNDLE_IDENTIFIER = "ios-swift-prod-vcb";
+				MARKETING_VERSION = 1.06;
+				PRODUCT_BUNDLE_IDENTIFIER = "vcanbuy.ios-m-vcanbuy";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "ios prod vcb";
+				PROVISIONING_PROFILE_SPECIFIER = "ios vcanbuy";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -597,9 +597,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: VCANBUY COMPANY LIMITED (B94HYA9BJ7)";
+				CODE_SIGN_IDENTITY = "Apple Distribution: VCANBUY COMPANY LIMITED (B94HYA9BJ7)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = B94HYA9BJ7;
 				INFOPLIST_FILE = ios_vcanbuy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -607,10 +607,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.05;
-				PRODUCT_BUNDLE_IDENTIFIER = "ios-swift-prod-vcb";
+				MARKETING_VERSION = 1.06;
+				PRODUCT_BUNDLE_IDENTIFIER = "vcanbuy.ios-m-vcanbuy";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "ios prod vcb";
+				PROVISIONING_PROFILE_SPECIFIER = "ios vcanbuy";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
