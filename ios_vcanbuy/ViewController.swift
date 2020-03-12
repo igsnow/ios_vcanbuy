@@ -34,6 +34,9 @@ class ViewController: UIViewController, WKUIDelegate , WKScriptMessageHandler{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // 处理顶部状态栏透明的问题
+        setupWebView()
+
         // 清除缓存
         self.clearCache()
         
@@ -129,6 +132,18 @@ class ViewController: UIViewController, WKUIDelegate , WKScriptMessageHandler{
             let cookiesPath = libraryPath! + "/Cookies"
             try!FileManager.default.removeItem(atPath: cookiesPath)
         }
+    }
+    
+    func setupWebView() {
+            let webConfiguration = WKWebViewConfiguration()
+            webView = WKWebView(frame:.zero , configuration: webConfiguration)
+            webView.uiDelegate = self
+            view.addSubview(webView)
+        
+            webView.translatesAutoresizingMaskIntoConstraints = false
+
+            view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[v0]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0":webView]))
+            view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-30-[v0]|", options: NSLayoutConstraint.FormatOptions(), metrics: nil, views: ["v0":webView]))
     }
     
 }
