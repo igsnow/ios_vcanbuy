@@ -94,6 +94,7 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, WKSc
     }
     
     func nativeCall(function:String,params:String){
+        print("js call ios~~~~~~~~")
         self.webView.evaluateJavaScript("window['" + function + "'] && " + function + "('"+(params )+"')", completionHandler: { (item, error) in
                
            })
