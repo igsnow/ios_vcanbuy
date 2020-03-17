@@ -139,7 +139,7 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, WKSc
         if #available(iOS 9.0, *) {
             let websiteDataTypes = NSSet(array: [WKWebsiteDataTypeDiskCache, WKWebsiteDataTypeMemoryCache])
             let date = NSDate(timeIntervalSince1970: 0)
-            print("clear~~~")
+            print("clear cache~~~")
             WKWebsiteDataStore.default().removeData(ofTypes: websiteDataTypes as! Set<String>, modifiedSince: date as Date, completionHandler:{ })
         } else {
             var libraryPath = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.libraryDirectory, FileManager.SearchPathDomainMask.userDomainMask, false).first!
@@ -210,4 +210,4 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, WKSc
 //        print(prompt)
 //    }
 //}
-
+//
