@@ -42,8 +42,8 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, WKSc
         // 清除缓存
         self.clearCache()
         
-//        let myURL = URL(string:"http://m.vcanbuy.com")
-        let myURL = URL(string:"http://120.27.228.29:8081")
+        let myURL = URL(string:"http://m.vcanbuy.com")
+//        let myURL = URL(string:"http://120.27.228.29:8081")
 //        let myURL = URL(string:"http://localhost:1017")
 
         let myRequest = URLRequest(url: myURL!)
