@@ -106,7 +106,8 @@ class SplashController: UIViewController {
             rootVC.window?.rootViewController  = guideVC;
         }else{
             print("not first launch")
-            let mainController = ViewController()
+//            let mainController = ViewController()
+            let mainController = RootViewController()
             rootVC.window?.rootViewController = mainController
         }
     }

@@ -55,7 +55,7 @@ class MainViewController: UIViewController {
 extension MainViewController: UISearchBarDelegate {
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        print("搜索条件：\(searchBar.text)")
+        print("搜索条件：\(String(describing: searchBar.text))")
     }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
