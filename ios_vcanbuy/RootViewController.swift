@@ -20,7 +20,9 @@ class RootViewController: UIViewController {
     // 主页导航控制器
     var mainNav: UINavigationController?
     // 主页控制器
-    var mainVC: MainViewController!
+//    var mainVC: MainViewController!
+    var mainVC: ViewController!
+
     // 菜单页控制器
     var menuVC: MenuViewController?
     // 菜单当前状态
@@ -49,12 +51,16 @@ class RootViewController: UIViewController {
         super.viewDidLoad()
         
         // 初始化主视图
-        let main = MainViewController()
+//        let main = MainViewController()
+        let main = ViewController()
+
         self.mainNav = UINavigationController(rootViewController: main)
         self.view.addSubview((self.mainNav?.view)!)
         
         // 创建mainVC控制器
-        mainVC = mainNav!.viewControllers.first as! MainViewController!
+//        mainVC = mainNav!.viewControllers.first as! MainViewController!
+        mainVC = mainNav!.viewControllers.first as! ViewController!
+
         
         // 添加leftBarButtonItem
         let leftItemBtn = UIButton(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
