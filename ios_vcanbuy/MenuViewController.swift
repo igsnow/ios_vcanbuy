@@ -10,12 +10,12 @@ import UIKit
 
 class MenuViewController: UIViewController {
     
-    let titlesArray = ["开通会员", "QQ钱包", "网上营业厅", "个性打扮", "我的收藏", "我的相册"]
+    let titlesArray = ["帮助手册", "会员权益", "我的钱包", "我的优惠券", "我的积分", "在线客服"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.view.backgroundColor = UIColor.red
+        self.view.backgroundColor = UIColor.orange
         
         self.setupUI()
     }
@@ -24,20 +24,22 @@ class MenuViewController: UIViewController {
     
         // 头像
         let iconImageView = UIImageView(frame: CGRect(x: 10, y: 64+10, width: 60, height: 60))
-        iconImageView.image = UIImage(named: "icon.jpg")
-        self.view.addSubview(iconImageView)
-        // 姓名
-        let nameLabel = UILabel(frame: CGRect(x: iconImageView.frame.maxX+10, y: iconImageView.frame.origin.y, width: 100, height: 30))
-        nameLabel.text = "不安分心"
-        self.view.addSubview(nameLabel)
+//        iconImageView.image = UIImage(named: "icon.jpg")
+//        self.view.addSubview(iconImageView)
+//        // 姓名
+//        let nameLabel = UILabel(frame: CGRect(x: iconImageView.frame.maxX+10, y: iconImageView.frame.origin.y, width: 100, height: 30))
+//        nameLabel.text = "Vcanbuy"
+//        nameLabel.textColor = UIColor.orange
+//        self.view.addSubview(nameLabel)
         // star
-        let starImageView = UIImageView(frame: CGRect(x: nameLabel.frame.origin.x, y: nameLabel.frame.maxY, width: 100, height: 30))
-        starImageView.backgroundColor = UIColor.yellow
-        self.view.addSubview(starImageView)
+//        let starImageView = UIImageView(frame: CGRect(x: nameLabel.frame.origin.x, y: nameLabel.frame.maxY, width: 100, height: 30))
+//        starImageView.backgroundColor = UIColor.yellow
+//        self.view.addSubview(starImageView)
         // intrude
         let intrudeLabel = UILabel(frame: CGRect(x: iconImageView.frame.origin.x, y: iconImageView.frame.maxY+10, width: 260, height: 30))
-        intrudeLabel.font = UIFont.systemFont(ofSize: 13)
-        intrudeLabel.text = "当野心支撑不起梦想，那就狠狠地学习"
+        intrudeLabel.font = UIFont.systemFont(ofSize: 20)
+        intrudeLabel.text = "购物就上Vcanbuy"
+        intrudeLabel.textColor = UIColor.white
         self.view.addSubview(intrudeLabel)
         
         let tableHeight = UIScreen.main.bounds.height-iconImageView.frame.maxY
@@ -81,22 +83,22 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
     // UITableViewDelegate方法，可选
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
-            print("开通会员")
+            print("帮助手册")
         }
         else if (indexPath.row == 1){
-            print("QQ钱包")
+            print("会员权益")
         }
         else if (indexPath.row == 2){
-            print("网上营业厅")
+            print("我的钱包")
         }
         else if (indexPath.row == 3){
-            print("个性打扮")
+            print("我的优惠券")
         }
         else if (indexPath.row == 4){
-            print("我的收藏")
+            print("我的积分")
         }
         else if (indexPath.row == 5){
-            print("我的相册")
+            print("在线客服")
         }
     }
 }
