@@ -38,7 +38,7 @@ class RootViewController: UIViewController {
     }
     
     // 菜单打开后主页在屏幕右侧露出部分的宽度
-    let menuViewExpandedOffset:CGFloat = 100.0
+    let menuViewExpandedOffset:CGFloat = 120.0
     
     // 侧滑菜单黑色半透明遮罩层
     var blackCover: UIView?
@@ -206,3 +206,4 @@ class RootViewController: UIViewController {
         }
     }
 }
+

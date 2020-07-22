@@ -35,7 +35,7 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, WKSc
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
         // 处理顶部状态栏透明的问题
         self.setupWebView()
 
@@ -53,6 +53,9 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, WKSc
     override func viewWillAppear(_ animated: Bool) {
         // Do any additional setup before view appears.
         super.viewWillAppear(animated)
+        
+        // 隐藏导航栏顶部
+        self.navigationController?.navigationBar.isHidden = true
         self.setupNotificationHandler()
     }
     
