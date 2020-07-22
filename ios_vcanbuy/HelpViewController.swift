@@ -22,8 +22,8 @@ class HelpViewController: UIViewController {
         backBtn.addTarget(self, action: #selector(backBtnAction), for: .touchUpInside)
         self.view.addSubview(backBtn)
         
-       
         let frame = self.view.bounds
+        print(frame)
         
         // 标题
         let titleLabel = UILabel(frame:  CGRect(x:0,
@@ -64,6 +64,8 @@ class HelpViewController: UIViewController {
         paraph.lineSpacing = 15
         paraph.firstLineHeadIndent = 20
         paraph.alignment = .left
+        // 溢出省略
+        paraph.lineBreakMode = .byTruncatingTail
         let attributes = [NSAttributedString.Key.font:UIFont.systemFont(ofSize: 15),
                           NSAttributedString.Key.paragraphStyle: paraph]
         label.attributedText = NSAttributedString(string: str, attributes: attributes)
