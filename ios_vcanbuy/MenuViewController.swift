@@ -84,6 +84,9 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
             print("帮助手册")
+            let rootVC = UIApplication.shared.delegate as! AppDelegate
+            let HelpVC = HelpViewController()
+            rootVC.window?.rootViewController = HelpVC
         }
         else if (indexPath.row == 1){
             print("会员权益")
