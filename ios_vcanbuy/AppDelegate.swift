@@ -21,7 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // 先进入闪图页
         window = UIWindow(frame:UIScreen.main.bounds)
         let splashVC = SplashController()
-//        self.window?.rootViewController = RootViewController()
         self.window?.rootViewController = splashVC
         window?.makeKeyAndVisible()
         

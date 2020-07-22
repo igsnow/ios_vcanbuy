@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		4249802624C6EF5900030C74 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4249802524C6EF5900030C74 /* RootViewController.swift */; };
 		4249802824C6EFDA00030C74 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4249802724C6EFDA00030C74 /* MenuViewController.swift */; };
-		4249802A24C6F02900030C74 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4249802924C6F02900030C74 /* MainViewController.swift */; };
 		4253B9E223B5994100176B7D /* SplashController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4253B9E123B5994100176B7D /* SplashController.swift */; };
 		4297A61723B36DF500D75D5E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4297A61623B36DF500D75D5E /* AppDelegate.swift */; };
 		4297A61923B36DF500D75D5E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4297A61823B36DF500D75D5E /* ViewController.swift */; };
@@ -47,7 +46,6 @@
 		3874CB11A4B8EAAB8D3C3ACA /* Pods-ios_vcanbuyUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios_vcanbuyUITests.debug.xcconfig"; path = "Target Support Files/Pods-ios_vcanbuyUITests/Pods-ios_vcanbuyUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		4249802524C6EF5900030C74 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		4249802724C6EFDA00030C74 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
-		4249802924C6F02900030C74 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		4253B9E123B5994100176B7D /* SplashController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashController.swift; sourceTree = "<group>"; };
 		4297A61323B36DF500D75D5E /* ios_vcanbuy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ios_vcanbuy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4297A61623B36DF500D75D5E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -147,7 +145,6 @@
 				4253B9E123B5994100176B7D /* SplashController.swift */,
 				4249802524C6EF5900030C74 /* RootViewController.swift */,
 				4249802724C6EFDA00030C74 /* MenuViewController.swift */,
-				4249802924C6F02900030C74 /* MainViewController.swift */,
 			);
 			path = ios_vcanbuy;
 			sourceTree = "<group>";
@@ -401,7 +398,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4249802A24C6F02900030C74 /* MainViewController.swift in Sources */,
 				4249802624C6EF5900030C74 /* RootViewController.swift in Sources */,
 				4249802824C6EFDA00030C74 /* MenuViewController.swift in Sources */,
 				4297A61923B36DF500D75D5E /* ViewController.swift in Sources */,

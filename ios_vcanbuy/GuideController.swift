@@ -50,7 +50,6 @@ class GuideController: UIViewController,UIScrollViewDelegate {
     // 点击第四张图的按钮跳转到首页
     @objc func closeGuide(){
         let rootVC = UIApplication.shared.delegate as! AppDelegate
-//        let mainController = ViewController()
         let mainController = RootViewController()
         rootVC.window?.rootViewController = mainController
     }
