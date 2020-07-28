@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         JPUSHService.register(forRemoteNotificationConfig: entity, delegate: self as? JPUSHRegisterDelegate)
          // 需要IDFA 功能，定向投放广告功能
          //let advertisingId = ASIdentifierManager.shared().advertisingIdentifier.uuidString
-        JPUSHService.setup(withOption: launchOptions, appKey: "02e2b048e74a6dc0a6eb5d99", channel: "App Store", apsForProduction: false, advertisingIdentifier: nil)
+        JPUSHService.setup(withOption: launchOptions, appKey: "02e2b048e74a6dc0a6eb5d99", channel: "App Store", apsForProduction: true, advertisingIdentifier: nil)
         
         
         // 先进入闪图页
