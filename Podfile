@@ -9,7 +9,7 @@ target 'ios_vcanbuy' do
   pod 'RxSwift'
   pod 'RxCocoa'
   pod 'SwiftyJSON'
-
+  pod 'JPush'
 
   target 'ios_vcanbuyTests' do
     inherit! :search_paths
