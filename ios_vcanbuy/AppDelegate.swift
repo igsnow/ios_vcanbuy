@@ -17,20 +17,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        
+        // 极光推送代码
+        let entity = JPUSHRegisterEntity()
+        entity.types = 1 << 0 | 1 << 1 | 1 << 2
+        JPUSHService.register(forRemoteNotificationConfig: entity, delegate: self as? JPUSHRegisterDelegate)
+        // 需要IDFA 功能，定向投放广告功能
+        //let advertisingId = ASIdentifierManager.shared().advertisingIdentifier.uuidString
+        JPUSHService.setup(withOption: launchOptions, appKey: "02e2b048e74a6dc0a6eb5d99", channel: "App Store", apsForProduction: true, advertisingIdentifier: nil)
+              
+        
         // 先进入闪图页
         window = UIWindow(frame:UIScreen.main.bounds)
         let splashVC = SplashController()
         self.window?.rootViewController = splashVC
         window?.makeKeyAndVisible()
-        
-        // 极光推送代码
-       let entity = JPUSHRegisterEntity()
-       entity.types = 1 << 0 | 1 << 1 | 1 << 2
-       JPUSHService.register(forRemoteNotificationConfig: entity, delegate: self as? JPUSHRegisterDelegate)
-        // 需要IDFA 功能，定向投放广告功能
-        //let advertisingId = ASIdentifierManager.shared().advertisingIdentifier.uuidString
-       JPUSHService.setup(withOption: launchOptions, appKey: "02e2b048e74a6dc0a6eb5d99", channel: "App Store", apsForProduction: true, advertisingIdentifier: nil)
-       
         
         return true
     }
