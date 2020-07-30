@@ -24,6 +24,7 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, WKSc
     var params :String = ""
     var callbackId : String = ""
     var disposeBag: DisposeBag = DisposeBag()
+    var myStr=String()//全局变量
 
     override func loadView() {
         let webConfiguration = WKWebViewConfiguration()
@@ -42,8 +43,11 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, WKSc
         // 清除缓存
         self.clearCache()
         
+        print("页面属性传值：",myStr)
+
+        
 //        let myURL = URL(string:"http://m.vcanbuy.com")
-        let myURL = URL(string:"http://120.27.228.29:8081")
+        let myURL = URL(string:"http://120.27.228.29:8081/#/" + myStr)
 
         let myRequest = URLRequest(url: myURL!)
         webView.load(myRequest)

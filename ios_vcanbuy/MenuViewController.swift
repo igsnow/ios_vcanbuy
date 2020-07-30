@@ -9,7 +9,7 @@
 import UIKit
 
 class MenuViewController: UIViewController {
-    
+
     let titlesArray = ["用户条款", "我的钱包", "我的订单", "我的箱子", "我的优惠券", "切换语言", "修改密码"]
     
     override func viewDidLoad() {
@@ -26,7 +26,7 @@ class MenuViewController: UIViewController {
         let iconImageView = UIImageView(frame: CGRect(x: 10, y: 64+10, width: 60, height: 60))
         iconImageView.image = UIImage(named: "icon.jpg")
         self.view.addSubview(iconImageView)
-        // 姓名
+        // 用户信息
         let greetLabel = UILabel(frame: CGRect(x: iconImageView.frame.maxX+10, y: iconImageView.frame.origin.y, width: 200, height: 30))
         greetLabel.text = "你好！"
         greetLabel.textColor = UIColor.white
@@ -92,26 +92,38 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
     }
     // UITableViewDelegate方法，可选
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let defaults = UserDefaults.standard
         if indexPath.row == 0 {
-            print("帮助手册")
+            print("用户条款")
+            defaults.set("home", forKey: "hash")
             let rootVC = UIApplication.shared.delegate as! AppDelegate
-            let HelpVC = HelpViewController()
-            rootVC.window?.rootViewController = HelpVC
+            rootVC.window?.rootViewController = HelpViewController()
         }
         else if (indexPath.row == 1){
-            print("会员权益")
+            print("我的钱包")
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let threeVC = storyboard.instantiateViewController(withIdentifier: "ViewControllerID") as! ViewController
+             threeVC.myStr="myWallet"
+            self.present(threeVC, animated: true, completion: nil)
+            
         }
         else if (indexPath.row == 2){
-            print("我的钱包")
+            print("我的订单")
+            
         }
         else if (indexPath.row == 3){
-            print("我的优惠券")
+            print("我的箱子")
         }
         else if (indexPath.row == 4){
-            print("我的积分")
+            print("我的优惠券")
+            
         }
         else if (indexPath.row == 5){
-            print("在线客服")
+            print("切换语言")
+        }
+        else if (indexPath.row == 6){
+            print("修改密码")
         }
     }
 }
