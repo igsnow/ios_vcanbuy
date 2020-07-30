@@ -30,6 +30,7 @@
 		429939A524CFF3E400A10F94 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 429939A424CFF3E400A10F94 /* libz.tbd */; };
 		42B02A7023B4B24600516FF0 /* GuideController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B02A6F23B4B24600516FF0 /* GuideController.swift */; };
 		42C0868124C7E9FB00C5787C /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C0868024C7E9FB00C5787C /* HelpViewController.swift */; };
+		42EAE65B24D10FB700F6212F /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42EAE65A24D10FB700F6212F /* ExternalAccessory.framework */; };
 		556C037CBEB7EB6BD55FB95E /* Pods_ios_vcanbuyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56D3C510E10A1BF22C54BD2F /* Pods_ios_vcanbuyTests.framework */; };
 		9E8270585A6EF9EEED8D7AA4 /* Pods_ios_vcanbuyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C334DAD474E72FEB29B6F57 /* Pods_ios_vcanbuyUITests.framework */; };
 		BB0D02ABCFA5F6BAD021412F /* Pods_ios_vcanbuy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81B4FC52E5001ACD80BE87A1 /* Pods_ios_vcanbuy.framework */; };
@@ -86,6 +87,7 @@
 		429939A424CFF3E400A10F94 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		42B02A6F23B4B24600516FF0 /* GuideController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideController.swift; sourceTree = "<group>"; };
 		42C0868024C7E9FB00C5787C /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
+		42EAE65A24D10FB700F6212F /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		56D3C510E10A1BF22C54BD2F /* Pods_ios_vcanbuyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ios_vcanbuyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DF43DE43BE869EE67AEBEF6 /* Pods-ios_vcanbuy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios_vcanbuy.release.xcconfig"; path = "Target Support Files/Pods-ios_vcanbuy/Pods-ios_vcanbuy.release.xcconfig"; sourceTree = "<group>"; };
 		81B4FC52E5001ACD80BE87A1 /* Pods_ios_vcanbuy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ios_vcanbuy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,6 +113,7 @@
 				4299399324CFD4BC00A10F94 /* CoreFoundation.framework in Frameworks */,
 				4299399124CFD4AB00A10F94 /* CFNetwork.framework in Frameworks */,
 				BB0D02ABCFA5F6BAD021412F /* Pods_ios_vcanbuy.framework in Frameworks */,
+				42EAE65B24D10FB700F6212F /* ExternalAccessory.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,6 +211,7 @@
 		C8FF6FB5519DD0EA704FD848 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				42EAE65A24D10FB700F6212F /* ExternalAccessory.framework */,
 				429939A424CFF3E400A10F94 /* libz.tbd */,
 				429939A224CFD55A00A10F94 /* libresolv.tbd */,
 				429939A024CFD54800A10F94 /* UserNotifications.framework */,

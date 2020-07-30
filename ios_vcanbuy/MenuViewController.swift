@@ -10,7 +10,7 @@ import UIKit
 
 class MenuViewController: UIViewController {
     
-    let titlesArray = ["帮助手册", "会员权益", "我的钱包", "我的优惠券", "我的积分", "在线客服"]
+    let titlesArray = ["用户条款", "我的钱包", "我的订单", "我的箱子", "我的优惠券", "切换语言", "修改密码"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,23 +24,33 @@ class MenuViewController: UIViewController {
     
         // 头像
         let iconImageView = UIImageView(frame: CGRect(x: 10, y: 64+10, width: 60, height: 60))
-//        iconImageView.image = UIImage(named: "icon.jpg")
-//        self.view.addSubview(iconImageView)
-//        // 姓名
-//        let nameLabel = UILabel(frame: CGRect(x: iconImageView.frame.maxX+10, y: iconImageView.frame.origin.y, width: 100, height: 30))
-//        nameLabel.text = "Vcanbuy"
-//        nameLabel.textColor = UIColor.orange
-//        self.view.addSubview(nameLabel)
-        // star
+        iconImageView.image = UIImage(named: "icon.jpg")
+        self.view.addSubview(iconImageView)
+        // 姓名
+        let greetLabel = UILabel(frame: CGRect(x: iconImageView.frame.maxX+10, y: iconImageView.frame.origin.y, width: 200, height: 30))
+        greetLabel.text = "你好！"
+        greetLabel.textColor = UIColor.white
+        self.view.addSubview(greetLabel)
+        
+        let thLabel = UILabel(frame: CGRect(x: iconImageView.frame.maxX+10, y: iconImageView.frame.origin.y + 25, width: 200, height: 30))
+        thLabel.text = "TH208888"
+        thLabel.textColor = UIColor.white
+        self.view.addSubview(thLabel)
+        
+        let nameLabel = UILabel(frame: CGRect(x: iconImageView.frame.maxX+10, y: iconImageView.frame.origin.y + 50, width: 200, height: 30))
+        nameLabel.text = "(生产育忠)"
+        nameLabel.textColor = UIColor.white
+        self.view.addSubview(nameLabel)
+         
 //        let starImageView = UIImageView(frame: CGRect(x: nameLabel.frame.origin.x, y: nameLabel.frame.maxY, width: 100, height: 30))
 //        starImageView.backgroundColor = UIColor.yellow
 //        self.view.addSubview(starImageView)
-        // intrude
+        
         let intrudeLabel = UILabel(frame: CGRect(x: iconImageView.frame.origin.x, y: iconImageView.frame.maxY+10, width: 260, height: 30))
         intrudeLabel.font = UIFont.systemFont(ofSize: 20)
         intrudeLabel.text = "购物就上Vcanbuy"
         intrudeLabel.textColor = UIColor.white
-        self.view.addSubview(intrudeLabel)
+//        self.view.addSubview(intrudeLabel)
         
         let tableHeight = UIScreen.main.bounds.height-iconImageView.frame.maxY
         let tableViewFrame = CGRect(x: iconImageView.frame.origin.x, y: intrudeLabel.frame.maxY+10, width: 300, height: tableHeight)
