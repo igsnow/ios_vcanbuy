@@ -28,7 +28,12 @@ class MenuViewController: UIViewController {
            
         // 用户头像
         let iconImageView = UIImageView(frame: CGRect(x: 20, y: 80, width: 80, height: 80))
-        iconImageView.image = UIImage(data: data! as Data)
+        
+        if(data != nil){
+            iconImageView.image = UIImage(data: data! as Data)
+        }else{
+            iconImageView.image = UIImage(named: "icon.jpg")
+        }
         iconImageView.layer.cornerRadius = iconImageView.frame.width / 2
         iconImageView.layer.masksToBounds = true
         self.view.addSubview(iconImageView)
