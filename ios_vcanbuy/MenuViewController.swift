@@ -21,10 +21,16 @@ class MenuViewController: UIViewController {
     }
 
     func setupUI() {
-    
-        // 头像
-        let iconImageView = UIImageView(frame: CGRect(x: 10, y: 64+10, width: 60, height: 60))
-        iconImageView.image = UIImage(named: "icon.jpg")
+
+        // 获取网络图片
+        let urlStr = NSURL(string: "https://res.vcanbuy.com/misc/93b2c9fbb3401e66e29a345b5bff85bf.png")
+        let data = NSData(contentsOf: urlStr! as URL)
+           
+        // 用户头像
+        let iconImageView = UIImageView(frame: CGRect(x: 20, y: 80, width: 80, height: 80))
+        iconImageView.image = UIImage(data: data! as Data)
+        iconImageView.layer.cornerRadius = iconImageView.frame.width / 2
+        iconImageView.layer.masksToBounds = true
         self.view.addSubview(iconImageView)
         // 用户信息
         let greetLabel = UILabel(frame: CGRect(x: iconImageView.frame.maxX+10, y: iconImageView.frame.origin.y, width: 200, height: 30))
