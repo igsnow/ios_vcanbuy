@@ -24,7 +24,6 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, WKSc
     var params :String = ""
     var callbackId : String = ""
     var disposeBag: DisposeBag = DisposeBag()
-    var myStr=String()//全局变量
 
     override func loadView() {
         let webConfiguration = WKWebViewConfiguration()
@@ -43,11 +42,13 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, WKSc
         // 清除缓存
         self.clearCache()
         
-        print("页面属性传值：",myStr)
+        // 接收单例数据
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let hash = appDelegate.value ?? "home"
+        print(hash)
 
-        
 //        let myURL = URL(string:"http://m.vcanbuy.com")
-        let myURL = URL(string:"http://120.27.228.29:8081/#/" + myStr)
+        let myURL = URL(string:"http://120.27.228.29:8081/#/" + hash)
 
         let myRequest = URLRequest(url: myURL!)
         webView.load(myRequest)
@@ -138,7 +139,7 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, WKSc
     
     // 防止userContentController内存泄漏
     deinit {
-        webView.configuration.userContentController.removeScriptMessageHandler(forName: "deleteClipboardRecord")
+         webView.configuration.userContentController.removeScriptMessageHandler(forName: "deleteClipboardRecord")
     }
     
     // 去除webview缓存

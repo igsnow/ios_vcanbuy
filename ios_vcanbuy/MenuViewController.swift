@@ -92,38 +92,33 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
     }
     // UITableViewDelegate方法，可选
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let defaults = UserDefaults.standard
         if indexPath.row == 0 {
-            print("用户条款")
-            defaults.set("home", forKey: "hash")
-            let rootVC = UIApplication.shared.delegate as! AppDelegate
-            rootVC.window?.rootViewController = HelpViewController()
+            jump(path: "home", vc:HelpViewController())
         }
         else if (indexPath.row == 1){
-            print("我的钱包")
-            
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let threeVC = storyboard.instantiateViewController(withIdentifier: "ViewControllerID") as! ViewController
-             threeVC.myStr="myWallet"
-            self.present(threeVC, animated: true, completion: nil)
-            
+            jump(path: "myWallet")
         }
         else if (indexPath.row == 2){
-            print("我的订单")
-            
+            jump(path: "orderListOwn")
         }
         else if (indexPath.row == 3){
-            print("我的箱子")
+            jump(path: "orderListAgent")
         }
         else if (indexPath.row == 4){
-            print("我的优惠券")
-            
+            jump(path: "myCoupon")
         }
         else if (indexPath.row == 5){
-            print("切换语言")
+            jump(path: "changeLanguage")
         }
         else if (indexPath.row == 6){
             print("修改密码")
         }
+    }
+    
+    // 单例传值跳转到相应的h5页面
+    func jump(path: String, vc:UIViewController = RootViewController()) -> Void {
+        let rootVC = UIApplication.shared.delegate as! AppDelegate
+        rootVC.value = path
+        rootVC.window?.rootViewController = vc
     }
 }
