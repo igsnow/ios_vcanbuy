@@ -45,10 +45,10 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, WKSc
         // 接收单例数据
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let hash = appDelegate.value ?? "home"
-        print(hash)
 
 //        let myURL = URL(string:"http://m.vcanbuy.com")
-        let myURL = URL(string:"http://120.27.228.29:8081/#/" + hash)
+//        let myURL = URL(string:"http://120.27.228.29:8081/#/" + hash)
+        let myURL = URL(string:"http://192.168.1.116:8088/#/" + hash)
 
         let myRequest = URLRequest(url: myURL!)
         webView.load(myRequest)
@@ -76,6 +76,7 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, WKSc
         
             let userController = WKUserContentController()
             userController.add(self, name: "deleteClipboardRecord")
+            userController.add(self, name: "postSessionId")
             webConfiguration.userContentController = userController
         
             webView = WKWebView(frame:.zero , configuration: webConfiguration)
@@ -108,30 +109,24 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, WKSc
     }
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        print("删除剪切板了~~~~~~~~~~~: ",message.body)
-        UIPasteboard.general.string = "";
-        let str:String = UIPasteboard.general.string ?? "";
-        print("clipboard: ",str);
-
-//        self.dealWith(message: message)
+        // 处理js调用swift的方法和消息
+        self.dealWith(message: message)
     }
     
     func dealWith(message: WKScriptMessage) {
-        guard let messageBody = message.body as? String else {
-            return
-        }
-        let body = JSON.init(parseJSON: messageBody)
-        print(body)
+        let body = JSON.init(parseJSON: message.body as! String)
+        print("message body: ",body)
         
-        let action = body["action"].stringValue
-        _ = body["callbackId"].stringValue
-        if action.isEmpty {
-            return
-        }
+        let action = body["action"]
+        
         // js调用swift方法置空剪切板
         switch action {
         case "deleteClipboardRecord":
             UIPasteboard.general.string = "";
+            print("删除剪切板了~~~")
+        case "postSessionId":
+            let sessionId = body["sessionId"]
+            
         default:
             return
         }
