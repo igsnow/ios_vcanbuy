@@ -152,12 +152,12 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
     // 判断h5页面是否登录
     func isLogin() -> Bool {
         let defaults = UserDefaults.standard
-        let sessionId = defaults.string(forKey: "session_id")
+        let sessionId = defaults.string(forKey: "session_id") ?? ""
         print("login sessionId: ",sessionId)
-        if(sessionId != nil){
-            return true
-        }else{
+        if(sessionId.isEmpty){
             return false
+        }else{
+            return true
         }
     }
 }
