@@ -115,6 +115,7 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, WKSc
     }
     
     func dealWith(message: WKScriptMessage) {
+        let defaults = UserDefaults.standard
         let body = JSON.init(parseJSON: message.body as! String)
         print("message body: ",body)
         
@@ -123,22 +124,20 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, WKSc
         if(action.isEmpty){
             return
         }
-        
+
         // js调用swift方法置空剪切板
         switch action {
         case "deleteClipboardRecord":
-            UIPasteboard.general.string = "";
             print("删除剪切板了~~~")
+            UIPasteboard.general.string = "";
         case "postSessionId":
             let sessionId = body["sessionId"].stringValue
             print("sessionId: ",sessionId)
-            // 将从h5接收到的sessionId存入单例的全局变量
-            let rootVC = UIApplication.shared.delegate as! AppDelegate
-            rootVC.sessionId = sessionId
+            // 将从h5接收到的sessionId存入本地存储
+            defaults.set(sessionId, forKey: "session_id")
         case "deleteSessionId":
             print("删除sessionId了~~~")
-            let rootVC = UIApplication.shared.delegate as! AppDelegate
-            rootVC.sessionId = ""
+            defaults.set("", forKey: "session_id")
         default:
             return
         }
@@ -146,7 +145,9 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, WKSc
     
     // 防止userContentController内存泄漏
     deinit {
-         webView.configuration.userContentController.removeScriptMessageHandler(forName: "deleteClipboardRecord")
+        webView.configuration.userContentController.removeScriptMessageHandler(forName: "deleteClipboardRecord")
+        webView.configuration.userContentController.removeScriptMessageHandler(forName: "postSessionId")
+        webView.configuration.userContentController.removeScriptMessageHandler(forName: "deleteSessionId")
     }
     
     // 去除webview缓存

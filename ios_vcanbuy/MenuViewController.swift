@@ -32,7 +32,7 @@ class MenuViewController: UIViewController {
 //        if(data != nil){
 //            iconImageView.image = UIImage(data: data! as Data)
 //        }else{
-            iconImageView.image = UIImage(named: "icon.jpg")
+            iconImageView.image = UIImage(named: "splash.png")
 //        }
         iconImageView.layer.cornerRadius = iconImageView.frame.width / 2
         iconImageView.layer.masksToBounds = true
@@ -151,8 +151,9 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
     
     // 判断h5页面是否登录
     func isLogin() -> Bool {
-        let rootVC = UIApplication.shared.delegate as! AppDelegate
-        let sessionId =  rootVC.sessionId
+        let defaults = UserDefaults.standard
+        let sessionId = defaults.string(forKey: "session_id")
+        print("login sessionId: ",sessionId)
         if(sessionId != nil){
             return true
         }else{
