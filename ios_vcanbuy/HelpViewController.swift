@@ -13,10 +13,6 @@ class HelpViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        let rootVC = UIApplication.shared.delegate as! AppDelegate
-        print("appdelegate session: ",rootVC.sessionId)
-
         self.view.backgroundColor = UIColor.white
         
         // 返回首页按钮
@@ -27,7 +23,6 @@ class HelpViewController: UIViewController {
         self.view.addSubview(backBtn)
         
         let frame = self.view.bounds
-        print(frame)
         
         // 标题
         let titleLabel = UILabel(frame:  CGRect(x:0,

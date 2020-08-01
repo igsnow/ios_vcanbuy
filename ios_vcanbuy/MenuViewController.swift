@@ -23,17 +23,17 @@ class MenuViewController: UIViewController {
     func setupUI() {
 
         // 获取网络图片
-        let urlStr = NSURL(string: "https://res.vcanbuy.com/misc/93b2c9fbb3401e66e29a345b5bff85bf.png")
-        let data = NSData(contentsOf: urlStr! as URL)
-           
+//        let urlStr = NSURL(string: "https://res.vcanbuy.com/misc/93b2c9fbb3401e66e29a345b5bff85bf.png")
+//        let data = NSData(contentsOf: urlStr! as URL)
+//
         // 用户头像
         let iconImageView = UIImageView(frame: CGRect(x: 20, y: 80, width: 80, height: 80))
         
-        if(data != nil){
-            iconImageView.image = UIImage(data: data! as Data)
-        }else{
+//        if(data != nil){
+//            iconImageView.image = UIImage(data: data! as Data)
+//        }else{
             iconImageView.image = UIImage(named: "icon.jpg")
-        }
+//        }
         iconImageView.layer.cornerRadius = iconImageView.frame.width / 2
         iconImageView.layer.masksToBounds = true
         self.view.addSubview(iconImageView)
@@ -107,16 +107,32 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
             jump(path: "home", vc:HelpViewController())
         }
         else if (indexPath.row == 1){
-            jump(path: "myWallet")
+            if(isLogin()){
+                jump(path: "myWallet")
+            }else{
+                jump(path: "login")
+            }
         }
         else if (indexPath.row == 2){
-            jump(path: "orderListOwn")
+            if(isLogin()){
+                jump(path: "orderListOwn")
+            }else{
+                 jump(path: "login")
+            }
         }
         else if (indexPath.row == 3){
-            jump(path: "orderListAgent")
+            if(isLogin()){
+                jump(path: "orderListAgent")
+            }else{
+                jump(path: "login")
+            }
         }
         else if (indexPath.row == 4){
-            jump(path: "myCoupon")
+            if(isLogin()){
+                jump(path: "myCoupon")
+            }else{
+                jump(path: "login")
+            }
         }
         else if (indexPath.row == 5){
             jump(path: "changeLanguage")
@@ -131,5 +147,16 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
         let rootVC = UIApplication.shared.delegate as! AppDelegate
         rootVC.value = path
         rootVC.window?.rootViewController = vc
+    }
+    
+    // 判断h5页面是否登录
+    func isLogin() -> Bool {
+        let rootVC = UIApplication.shared.delegate as! AppDelegate
+        let sessionId =  rootVC.sessionId
+        if(sessionId != nil){
+            return true
+        }else{
+            return false
+        }
     }
 }

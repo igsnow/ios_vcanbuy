@@ -120,6 +120,10 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, WKSc
         
         let action = body["action"].stringValue
         
+        if(action.isEmpty){
+            return
+        }
+        
         // js调用swift方法置空剪切板
         switch action {
         case "deleteClipboardRecord":
