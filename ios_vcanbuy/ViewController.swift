@@ -77,6 +77,7 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, WKSc
             let userController = WKUserContentController()
             userController.add(self, name: "deleteClipboardRecord")
             userController.add(self, name: "postSessionId")
+            userController.add(self, name: "deleteSessionId")
             webConfiguration.userContentController = userController
         
             webView = WKWebView(frame:.zero , configuration: webConfiguration)
@@ -130,6 +131,10 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, WKSc
             // 将从h5接收到的sessionId存入单例的全局变量
             let rootVC = UIApplication.shared.delegate as! AppDelegate
             rootVC.sessionId = sessionId
+        case "deleteSessionId":
+            print("删除sessionId了~~~")
+            let rootVC = UIApplication.shared.delegate as! AppDelegate
+            rootVC.sessionId = ""
         default:
             return
         }

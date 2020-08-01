@@ -12,6 +12,10 @@ class HelpViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        let rootVC = UIApplication.shared.delegate as! AppDelegate
+        print("appdelegate session: ",rootVC.sessionId)
 
         self.view.backgroundColor = UIColor.white
         
