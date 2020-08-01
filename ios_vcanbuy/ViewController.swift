@@ -48,7 +48,7 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, WKSc
 
 //        let myURL = URL(string:"http://m.vcanbuy.com")
 //        let myURL = URL(string:"http://120.27.228.29:8081/#/" + hash)
-        let myURL = URL(string:"http://192.168.1.116:8088/#/" + hash)
+        let myURL = URL(string:"http://192.168.0.108:8088/#/" + hash)
 
         let myRequest = URLRequest(url: myURL!)
         webView.load(myRequest)
@@ -117,7 +117,7 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, WKSc
         let body = JSON.init(parseJSON: message.body as! String)
         print("message body: ",body)
         
-        let action = body["action"]
+        let action = body["action"].stringValue
         
         // js调用swift方法置空剪切板
         switch action {
@@ -125,8 +125,11 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, WKSc
             UIPasteboard.general.string = "";
             print("删除剪切板了~~~")
         case "postSessionId":
-            let sessionId = body["sessionId"]
-            
+            let sessionId = body["sessionId"].stringValue
+            print("sessionId: ",sessionId)
+            // 将从h5接收到的sessionId存入单例的全局变量
+            let rootVC = UIApplication.shared.delegate as! AppDelegate
+            rootVC.sessionId = sessionId
         default:
             return
         }
