@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class MenuViewController: UIViewController {
 
@@ -21,6 +22,15 @@ class MenuViewController: UIViewController {
     }
 
     func setupUI() {
+        
+//        // 测试接口地址 http://120.27.228.29:8081/gateway/user/get_user_by_id
+//        let url:String = "http://120.27.228.29:8081/gateway/user/get_user_by_id"
+//        Alamofire.request(url).response { response in
+//            debugPrint("res: ",response)
+//        }
+        
+        
+        
 
         // 获取网络图片
 //        let urlStr = NSURL(string: "https://res.vcanbuy.com/misc/93b2c9fbb3401e66e29a345b5bff85bf.png")

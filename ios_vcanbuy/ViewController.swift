@@ -45,10 +45,18 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, WKSc
         // 接收单例数据
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let hash = appDelegate.value ?? "home"
-
-//        let myURL = URL(string:"http://m.vcanbuy.com")
-//        let myURL = URL(string:"http://120.27.228.29:8081/#/" + hash)
-        let myURL = URL(string:"http://192.168.0.108:8088/#/" + hash)
+        
+//        let urlStr = "http://m.vcanbuy.com/#/"
+//        let urlStr = "http://120.27.228.29:8081/#/"
+        let urlStr = "http://192.168.1.116:8088/#/"
+        
+        let myURL = URL(string:urlStr + hash)
+    
+        if(urlStr.contains("vcanbuy")){
+            appDelegate.isDev = false
+        }else{
+            appDelegate.isDev = true
+        }
 
         let myRequest = URLRequest(url: myURL!)
         webView.load(myRequest)
@@ -131,13 +139,15 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, WKSc
             print("删除剪切板了~~~")
             UIPasteboard.general.string = "";
         case "postSessionId":
+            print("获取sessionId了~~~~")
             let sessionId = body["sessionId"].stringValue
-            print("sessionId: ",sessionId)
+            setCookie(sessionId: sessionId)
             // 将从h5接收到的sessionId存入本地存储
-            defaults.set(sessionId, forKey: "session_id")
+//            defaults.set(sessionId, forKey: "session_id")
         case "deleteSessionId":
-            print("删除sessionId了~~~")
-            defaults.set("", forKey: "session_id")
+            print("删除sessionId了~~~~")
+            delCookie()
+//            defaults.set("", forKey: "session_id")
         default:
             return
         }
@@ -167,6 +177,44 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, WKSc
                 print("error")
             }
             URLCache.shared.removeAllCachedResponses()
+        }
+    }
+    
+    // 创建cookie
+    func setCookie(sessionId:String) -> Void {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+
+        print("isDev~~~~~~~~~~~~~~~~~~~~: ",appDelegate.isDev)
+
+        var props = Dictionary<HTTPCookiePropertyKey, Any>()
+        props[HTTPCookiePropertyKey.name] = "session_id"
+        props[HTTPCookiePropertyKey.value] = sessionId
+        props[HTTPCookiePropertyKey.path] = "/"
+        if(appDelegate.isDev){
+            props[HTTPCookiePropertyKey.domain] = "120.27.228.29"
+        }else{
+            props[HTTPCookiePropertyKey.domain] = "m.vcanbuy.com"
+        }
+        //15天后过期
+        props[HTTPCookiePropertyKey.expires] = Date().addingTimeInterval(3600*24*15)
+        let cookie = HTTPCookie(properties: props)
+         
+        //通过setCookie方法把Cookie保存起来
+        let cstorage = HTTPCookieStorage.shared
+        cstorage.setCookie(cookie!)
+        
+        let cookies = HTTPCookieStorage.shared.cookies
+        print("set cookies~~~: ",cookies!)
+        
+    }
+    
+    // 删除cookie
+    func delCookie() -> Void {
+        if let cookies = HTTPCookieStorage.shared.cookies {
+            print("delete cookies~~~: ",cookies)
+            for cookie in cookies {
+                HTTPCookieStorage.shared.deleteCookie(cookie)
+            }
         }
     }
     
