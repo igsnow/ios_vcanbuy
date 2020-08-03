@@ -1,5 +1,4 @@
 PODS:
-  - Alamofire (4.9.1)
   - JCore (2.1.8)
   - JPush (3.2.8):
     - JCore (< 3.0.0, >= 2.0.0)
@@ -9,7 +8,6 @@ PODS:
   - SwiftyJSON (5.0.0)
 
 DEPENDENCIES:
-  - Alamofire
   - JPush
   - RxCocoa
   - RxSwift
@@ -22,17 +20,14 @@ SPEC REPOS:
     - RxCocoa
     - RxSwift
     - SwiftyJSON
-  trunk:
-    - Alamofire
 
 SPEC CHECKSUMS:
-  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   JCore: a7f1dead960d77a97717c73ea8b0aa5b33706491
   JPush: 8ce888d6dedfa417e90c8b6bc87405a16ce2e699
   RxCocoa: cbf70265dc65a981d4ac982e513c10cf23df24a0
   RxSwift: f172070dfd1a93d70a9ab97a5a01166206e1c575
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
 
-PODFILE CHECKSUM: 41f9656ac358461e9578d13717d3522b7e15bdcf
+PODFILE CHECKSUM: 54af57da2f1470c36a65364bbab2b6117f166b4c
 
 COCOAPODS: 1.9.3

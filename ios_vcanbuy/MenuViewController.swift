@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Alamofire
 
 class MenuViewController: UIViewController {
 
@@ -23,27 +22,62 @@ class MenuViewController: UIViewController {
 
     func setupUI() {
         
-//        // 测试接口地址 http://120.27.228.29:8081/gateway/user/get_user_by_id
-//        let url:String = "http://120.27.228.29:8081/gateway/user/get_user_by_id"
-//        Alamofire.request(url).response { response in
-//            debugPrint("res: ",response)
-//        }
+        // 获取用户信息
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let prefix:String?
+        var avatar:String = ""
+        var account:String = "THXXXXX"
+        var name:String = "请先登录"
+        
+        if(appDelegate.isDev){
+            prefix = "http://120.27.228.29:8081"
+        }else{
+            prefix = "http://m.vcanbuy.com"
+        }
+        
+        let url:String = prefix! + "/gateway/user/get_user_by_id"
+        let session = URLSession(configuration: .default)
+        let request = URLRequest(url: URL(string: url)!)
+        let task = session.dataTask(with: request) {(data, response, error) in
+            do {
+                let r = try JSONSerialization.jsonObject(with: data!, options: []) as! NSDictionary
+                let data = r.value(forKey: "data") as! NSDictionary
+               
+                if data["user_d_o"] is NSNull {
+                    print("请先登录")
+                }else {
+                    let user_d_o = data.value(forKey: "user_d_o") as! NSDictionary
+                    account = user_d_o.value(forKey: "account") as! String
+                    avatar = user_d_o.value(forKey: "avatar") as! String
+                    name = user_d_o.value(forKey: "name") as! String
+                    print("account: ",account)
+                    print("avatar: ",avatar)
+                    print("name: ",name)
+                }
+                
+
+            } catch {
+                print("无法连接到服务器")
+                return
+            }
+        }
+        task.resume()
         
         
         
 
         // 获取网络图片
-//        let urlStr = NSURL(string: "https://res.vcanbuy.com/misc/93b2c9fbb3401e66e29a345b5bff85bf.png")
-//        let data = NSData(contentsOf: urlStr! as URL)
-//
+        // let urlStr = NSURL(string: "https://res.vcanbuy.com/misc/93b2c9fbb3401e66e29a345b5bff85bf.png")
+        // let data = NSData(contentsOf: urlStr! as URL)
+        
         // 用户头像
         let iconImageView = UIImageView(frame: CGRect(x: 20, y: 80, width: 80, height: 80))
         
-//        if(data != nil){
-//            iconImageView.image = UIImage(data: data! as Data)
-//        }else{
+        // if(data != nil){
+        // iconImageView.image = UIImage(data: data! as Data)
+        // }else{
             iconImageView.image = UIImage(named: "splash.png")
-//        }
+        // }
         iconImageView.layer.cornerRadius = iconImageView.frame.width / 2
         iconImageView.layer.masksToBounds = true
         self.view.addSubview(iconImageView)
@@ -54,24 +88,24 @@ class MenuViewController: UIViewController {
         self.view.addSubview(greetLabel)
         
         let thLabel = UILabel(frame: CGRect(x: iconImageView.frame.maxX+10, y: iconImageView.frame.origin.y + 25, width: 200, height: 30))
-        thLabel.text = "TH208888"
+        thLabel.text = account
         thLabel.textColor = UIColor.white
         self.view.addSubview(thLabel)
         
         let nameLabel = UILabel(frame: CGRect(x: iconImageView.frame.maxX+10, y: iconImageView.frame.origin.y + 50, width: 200, height: 30))
-        nameLabel.text = "(生产育忠)"
+        nameLabel.text = "("+name+")"
         nameLabel.textColor = UIColor.white
         self.view.addSubview(nameLabel)
          
-//        let starImageView = UIImageView(frame: CGRect(x: nameLabel.frame.origin.x, y: nameLabel.frame.maxY, width: 100, height: 30))
-//        starImageView.backgroundColor = UIColor.yellow
-//        self.view.addSubview(starImageView)
+        // let starImageView = UIImageView(frame: CGRect(x: nameLabel.frame.origin.x, y: nameLabel.frame.maxY, width: 100, height: 30))
+        // starImageView.backgroundColor = UIColor.yellow
+        // self.view.addSubview(starImageView)
         
         let intrudeLabel = UILabel(frame: CGRect(x: iconImageView.frame.origin.x, y: iconImageView.frame.maxY+10, width: 260, height: 30))
         intrudeLabel.font = UIFont.systemFont(ofSize: 20)
         intrudeLabel.text = "购物就上Vcanbuy"
         intrudeLabel.textColor = UIColor.white
-//        self.view.addSubview(intrudeLabel)
+        // self.view.addSubview(intrudeLabel)
         
         let tableHeight = UIScreen.main.bounds.height-iconImageView.frame.maxY
         let tableViewFrame = CGRect(x: iconImageView.frame.origin.x, y: intrudeLabel.frame.maxY+10, width: 300, height: tableHeight)

@@ -123,7 +123,6 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, WKSc
     }
     
     func dealWith(message: WKScriptMessage) {
-        let defaults = UserDefaults.standard
         let body = JSON.init(parseJSON: message.body as! String)
         print("message body: ",body)
         
@@ -139,15 +138,12 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, WKSc
             print("删除剪切板了~~~")
             UIPasteboard.general.string = "";
         case "postSessionId":
-            print("获取sessionId了~~~~")
+            print("获取sessionId了~~~")
             let sessionId = body["sessionId"].stringValue
             setCookie(sessionId: sessionId)
-            // 将从h5接收到的sessionId存入本地存储
-//            defaults.set(sessionId, forKey: "session_id")
         case "deleteSessionId":
-            print("删除sessionId了~~~~")
+            print("删除sessionId了~~~")
             delCookie()
-//            defaults.set("", forKey: "session_id")
         default:
             return
         }
