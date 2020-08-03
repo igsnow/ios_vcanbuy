@@ -11,7 +11,10 @@ import UIKit
 class MenuViewController: UIViewController {
 
     let titlesArray = ["用户条款", "我的钱包", "我的订单", "我的箱子", "我的优惠券", "切换语言", "修改密码"]
-    
+    var avatar:String = ""
+    var account:String = "THXXXXX"
+    var name:String = "请先登录"
+          
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -22,50 +25,6 @@ class MenuViewController: UIViewController {
 
     func setupUI() {
         
-        // 获取用户信息
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let prefix:String?
-        var avatar:String = ""
-        var account:String = "THXXXXX"
-        var name:String = "请先登录"
-        
-        if(appDelegate.isDev){
-            prefix = "http://120.27.228.29:8081"
-        }else{
-            prefix = "http://m.vcanbuy.com"
-        }
-        
-        let url:String = prefix! + "/gateway/user/get_user_by_id"
-        let session = URLSession(configuration: .default)
-        let request = URLRequest(url: URL(string: url)!)
-        let task = session.dataTask(with: request) {(data, response, error) in
-            do {
-                let r = try JSONSerialization.jsonObject(with: data!, options: []) as! NSDictionary
-                let data = r.value(forKey: "data") as! NSDictionary
-               
-                if data["user_d_o"] is NSNull {
-                    print("请先登录")
-                }else {
-                    let user_d_o = data.value(forKey: "user_d_o") as! NSDictionary
-                    account = user_d_o.value(forKey: "account") as! String
-                    avatar = user_d_o.value(forKey: "avatar") as! String
-                    name = user_d_o.value(forKey: "name") as! String
-                    print("account: ",account)
-                    print("avatar: ",avatar)
-                    print("name: ",name)
-                }
-                
-
-            } catch {
-                print("无法连接到服务器")
-                return
-            }
-        }
-        task.resume()
-        
-        
-        
-
         // 获取网络图片
         // let urlStr = NSURL(string: "https://res.vcanbuy.com/misc/93b2c9fbb3401e66e29a345b5bff85bf.png")
         // let data = NSData(contentsOf: urlStr! as URL)
@@ -120,6 +79,48 @@ class MenuViewController: UIViewController {
         tableView.separatorStyle = .none
         
         self.view.addSubview(tableView)
+        
+        getUserINfo()
+        
+    }
+    
+    func getUserINfo() -> Void {
+        // 获取用户信息
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        var prefix:String?
+        if(appDelegate.isDev){
+            prefix = "http://120.27.228.29:8081"
+        }else{
+            prefix = "http://m.vcanbuy.com"
+        }
+        
+        let url:String = prefix! + "/gateway/user/get_user_by_id"
+        let session = URLSession(configuration: .default)
+        let request = URLRequest(url: URL(string: url)!)
+        let task = session.dataTask(with: request) {(data, response, error) in
+            do {
+                let r = try JSONSerialization.jsonObject(with: data!, options: []) as! NSDictionary
+                let data = r.value(forKey: "data") as! NSDictionary
+               
+                if data["user_d_o"] is NSNull {
+                    print("请先登录")
+                }else {
+                    let user_d_o = data.value(forKey: "user_d_o") as! NSDictionary
+                    self.account = user_d_o.value(forKey: "account") as! String
+                    self.avatar = user_d_o.value(forKey: "avatar") as! String
+                    self.name = user_d_o.value(forKey: "name") as! String
+                    print("account: ",self.account)
+                    print("avatar: ",self.avatar)
+                    print("name: ",self.name)
+                }
+                
+
+            } catch {
+                print("无法连接到服务器")
+                return
+            }
+        }
+        task.resume()
         
     }
    
@@ -195,13 +196,13 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
     
     // 判断h5页面是否登录
     func isLogin() -> Bool {
-        let defaults = UserDefaults.standard
-        let sessionId = defaults.string(forKey: "session_id") ?? ""
-        print("login sessionId: ",sessionId)
-        if(sessionId.isEmpty){
-            return false
-        }else{
-            return true
+        if let cookies = HTTPCookieStorage.shared.cookies {
+            if(cookies.count == 0){
+                return false
+            }else{
+                return true
+            }
         }
+        return false
     }
 }
