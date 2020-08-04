@@ -32,7 +32,7 @@ class MenuViewController: UIViewController {
         
         // 用户头像
         let iconImageView = UIImageView(frame: CGRect(x: 20, y: 80, width: 80, height: 80))
-        iconImageView.image = UIImage(named: "logo")
+        iconImageView.image = UIImage(named: "avatar")
         iconImageView.layer.cornerRadius = iconImageView.frame.width / 2
         iconImageView.layer.masksToBounds = true
         self.view.addSubview(iconImageView)
@@ -107,15 +107,14 @@ class MenuViewController: UIViewController {
                         self.thLabel?.text = self.account
                         self.nameLabel?.text = self.name
                     
-                        let imgUrl = "https://i.stack.imgur.com/KxUuh.jpg?s=32&g=1"
-                        let urlStr = NSURL(string: imgUrl)
-                        let data = NSData(contentsOf: urlStr! as URL)
-
-                        if(data != nil){
-                            self.iconImageView?.image = UIImage(data: data! as Data)
-                        }else{
-                            self.iconImageView?.image = UIImage(named: "logo")
-                        }
+//                        let imgUrl = self.avatar
+//                        let urlStr = NSURL(string: imgUrl!)
+//                        let data = NSData(contentsOf: urlStr! as URL)
+//                        if(data != nil){
+//                            self.iconImageView?.image = UIImage(data: data! as Data)
+//                        }else{
+//                            self.iconImageView?.image = UIImage(named: "avatar")
+//                        }
                         
                     }
                     
