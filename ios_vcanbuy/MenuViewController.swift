@@ -11,6 +11,7 @@ import UIKit
 class MenuViewController: UIViewController {
 
     let titlesArray = ["用户条款", "我的钱包", "我的订单", "我的箱子", "我的优惠券", "切换语言", "修改密码"]
+    var iconImageView:UIImageView?
     var thLabel:UILabel?
     var nameLabel:UILabel?
     var avatar:String?
@@ -29,21 +30,14 @@ class MenuViewController: UIViewController {
 
     func setupUI() {
         
-        // 获取网络图片
-        // let urlStr = NSURL(string: "https://res.vcanbuy.com/misc/93b2c9fbb3401e66e29a345b5bff85bf.png")
-        // let data = NSData(contentsOf: urlStr! as URL)
-        
         // 用户头像
         let iconImageView = UIImageView(frame: CGRect(x: 20, y: 80, width: 80, height: 80))
-        
-        // if(data != nil){
-        // iconImageView.image = UIImage(data: data! as Data)
-        // }else{
-            iconImageView.image = UIImage(named: "splash.png")
-        // }
+        iconImageView.image = UIImage(named: "logo")
         iconImageView.layer.cornerRadius = iconImageView.frame.width / 2
         iconImageView.layer.masksToBounds = true
         self.view.addSubview(iconImageView)
+        self.iconImageView = iconImageView
+        
         // 用户信息
         let greetLabel = UILabel(frame: CGRect(x: iconImageView.frame.maxX+10, y: iconImageView.frame.origin.y, width: 200, height: 30))
         greetLabel.text = "你好！"
@@ -62,18 +56,9 @@ class MenuViewController: UIViewController {
         self.view.addSubview(nameLabel)
         self.nameLabel = nameLabel
          
-        // let starImageView = UIImageView(frame: CGRect(x: nameLabel.frame.origin.x, y: nameLabel.frame.maxY, width: 100, height: 30))
-        // starImageView.backgroundColor = UIColor.yellow
-        // self.view.addSubview(starImageView)
-        
-        let intrudeLabel = UILabel(frame: CGRect(x: iconImageView.frame.origin.x, y: iconImageView.frame.maxY+10, width: 260, height: 30))
-        intrudeLabel.font = UIFont.systemFont(ofSize: 20)
-        intrudeLabel.text = "购物就上Vcanbuy"
-        intrudeLabel.textColor = UIColor.white
-        // self.view.addSubview(intrudeLabel)
-        
+        // 跳转列表
         let tableHeight = UIScreen.main.bounds.height-iconImageView.frame.maxY
-        let tableViewFrame = CGRect(x: iconImageView.frame.origin.x, y: intrudeLabel.frame.maxY+10, width: 300, height: tableHeight)
+        let tableViewFrame = CGRect(x: iconImageView.frame.origin.x, y: iconImageView.frame.maxY+20, width: 300, height: tableHeight)
         let tableView = UITableView(frame: tableViewFrame, style: .plain)
         tableView.delegate = self
         tableView.dataSource = self
@@ -83,15 +68,14 @@ class MenuViewController: UIViewController {
         tableView.backgroundColor = UIColor.clear
         // 去除所有cell的分割线
         tableView.separatorStyle = .none
-        
         self.view.addSubview(tableView)
         
+        // 获取用户信息
         getUserINfo()
     
     }
     
     func getUserINfo() -> Void {
-        // 获取用户信息
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         var prefix:String?
         if(appDelegate.isDev){
@@ -122,6 +106,17 @@ class MenuViewController: UIViewController {
                     DispatchQueue.main.async {
                         self.thLabel?.text = self.account
                         self.nameLabel?.text = self.name
+                    
+                        let imgUrl = "https://i.stack.imgur.com/KxUuh.jpg?s=32&g=1"
+                        let urlStr = NSURL(string: imgUrl)
+                        let data = NSData(contentsOf: urlStr! as URL)
+
+                        if(data != nil){
+                            self.iconImageView?.image = UIImage(data: data! as Data)
+                        }else{
+                            self.iconImageView?.image = UIImage(named: "logo")
+                        }
+                        
                     }
                     
                 }
@@ -210,14 +205,11 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
     func isLogin() -> Bool {
         if let cookies = HTTPCookieStorage.shared.cookies {
             if(cookies.count == 0){
-                print("islogin: false")
                 return false
             }else{
-                print("islogin: true")
                 return true
             }
         }
-        print("islogin end: false")
         return false
     }
 }
