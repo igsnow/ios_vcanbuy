@@ -189,7 +189,11 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
             jump(path: "changeLanguage")
         }
         else if (indexPath.row == 6){
-            print("修改密码")
+            if(isLogin()){
+                jump(path: "pwd", vc:PwdViewController())
+            }else{
+                jump(path: "login")
+            }
         }
     }
     
