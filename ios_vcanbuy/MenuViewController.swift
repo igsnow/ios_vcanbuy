@@ -11,16 +11,20 @@ import UIKit
 class MenuViewController: UIViewController {
 
     let titlesArray = ["用户条款", "我的钱包", "我的订单", "我的箱子", "我的优惠券", "切换语言", "修改密码"]
-    var avatar:String = ""
-    var account:String = "THXXXXX"
-    var name:String = "请先登录"
-          
+    var thLabel:UILabel?
+    var nameLabel:UILabel?
+    var avatar:String?
+    var account :String?
+    var name:String?
+
+              
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.view.backgroundColor = UIColor.orange
         
         self.setupUI()
+      
     }
 
     func setupUI() {
@@ -47,14 +51,16 @@ class MenuViewController: UIViewController {
         self.view.addSubview(greetLabel)
         
         let thLabel = UILabel(frame: CGRect(x: iconImageView.frame.maxX+10, y: iconImageView.frame.origin.y + 25, width: 200, height: 30))
-        thLabel.text = account
+        thLabel.text = "尊敬的用户"
         thLabel.textColor = UIColor.white
         self.view.addSubview(thLabel)
+        self.thLabel = thLabel
         
         let nameLabel = UILabel(frame: CGRect(x: iconImageView.frame.maxX+10, y: iconImageView.frame.origin.y + 50, width: 200, height: 30))
-        nameLabel.text = "("+name+")"
+        nameLabel.text = "请先登录"
         nameLabel.textColor = UIColor.white
         self.view.addSubview(nameLabel)
+        self.nameLabel = nameLabel
          
         // let starImageView = UIImageView(frame: CGRect(x: nameLabel.frame.origin.x, y: nameLabel.frame.maxY, width: 100, height: 30))
         // starImageView.backgroundColor = UIColor.yellow
@@ -81,7 +87,7 @@ class MenuViewController: UIViewController {
         self.view.addSubview(tableView)
         
         getUserINfo()
-        
+    
     }
     
     func getUserINfo() -> Void {
@@ -106,12 +112,18 @@ class MenuViewController: UIViewController {
                     print("请先登录")
                 }else {
                     let user_d_o = data.value(forKey: "user_d_o") as! NSDictionary
-                    self.account = user_d_o.value(forKey: "account") as! String
-                    self.avatar = user_d_o.value(forKey: "avatar") as! String
-                    self.name = user_d_o.value(forKey: "name") as! String
-                    print("account: ",self.account)
-                    print("avatar: ",self.avatar)
-                    print("name: ",self.name)
+                    self.account = user_d_o.value(forKey: "account") as? String
+                    self.avatar = user_d_o.value(forKey: "avatar") as? String
+                    self.name = user_d_o.value(forKey: "name") as? String
+                    print("account: ",self.account!)
+                    print("avatar: ",self.avatar!)
+                    print("name: ",self.name!)
+                    
+                    DispatchQueue.main.async {
+                        self.thLabel?.text = self.account
+                        self.nameLabel?.text = self.name
+                    }
+                    
                 }
                 
 
@@ -198,11 +210,14 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
     func isLogin() -> Bool {
         if let cookies = HTTPCookieStorage.shared.cookies {
             if(cookies.count == 0){
+                print("islogin: false")
                 return false
             }else{
+                print("islogin: true")
                 return true
             }
         }
+        print("islogin end: false")
         return false
     }
 }
