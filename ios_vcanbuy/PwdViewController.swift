@@ -48,8 +48,10 @@ class PwdViewController: UIViewController {
         super.viewDidLoad()
         
         // 进入页面，60s倒计时开始
-//        isCounting = true
-
+        DispatchQueue.main.async {
+            self.isCounting = true
+        }
+        
         self.view.backgroundColor = UIColor.white
         
         // 返回首页按钮
@@ -74,10 +76,10 @@ class PwdViewController: UIViewController {
         self.view.addSubview(titleLabel)
         
         sendButton = UIButton()
-        sendButton.frame = CGRect(x: frame.width - 130, y: 100, width: 120, height: 40)
+        sendButton.frame = CGRect(x: frame.width - 140, y: 100, width: 130, height: 40)
         sendButton.backgroundColor = UIColor.orange
         sendButton.setTitleColor(UIColor.white, for: .normal)
-        sendButton.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        sendButton.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         sendButton.setTitle("获取验证码", for: .normal)
         sendButton.addTarget(self, action: #selector(PwdViewController.sendButtonClick(_:)), for: .touchUpInside)
         
@@ -95,6 +97,7 @@ class PwdViewController: UIViewController {
     }
     
     @objc func sendButtonClick(_ sender: UIButton) {
+        print("start timer")
         isCounting = true
     }
     
