@@ -27,7 +27,7 @@ class MenuViewController: UIViewController {
         self.setupUI()
       
     }
-
+    
     func setupUI() {
         
         // 用户头像
@@ -190,7 +190,7 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
         }
         else if (indexPath.row == 6){
             if(isLogin()){
-                jump(path: "pwd", vc:PwdViewController())
+                alertMsg()
             }else{
                 jump(path: "login")
             }
@@ -214,5 +214,22 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
             }
         }
         return false
+    }
+    
+    // ios原生提醒框之修改密码
+    func alertMsg() -> Void {
+        let alertController = UIAlertController(title: "修改登录密码",
+                        message: "将给手机188*****051发送验证码", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        let okAction = UIAlertAction(title: "确定", style: .default, handler: {
+            action in
+            print("点击了确定")
+            self.jump(path: "home", vc:PwdViewController())
+        })
+        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+        
     }
 }
