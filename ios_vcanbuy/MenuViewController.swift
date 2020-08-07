@@ -221,8 +221,14 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
     
     // ios原生提醒框之修改密码
     func alertMsg() -> Void {
+        
+        // 加密展示的手机号66-950607788 => 66-95****788
+        let startIndex = (self.mobile?.index(self.mobile!.startIndex, offsetBy: 6))!
+        let endIndex = self.mobile?.index(self.mobile!.startIndex, offsetBy: 8)
+        let secretMobile = self.mobile?.replacingCharacters(in: startIndex...endIndex!, with: "****")
+
         let alertController = UIAlertController(title: "修改登录密码",
-                                                message: "将给手机"+self.mobile!+"发送验证码", preferredStyle: .alert)
+                                                message: "将给手机"+secretMobile!+"发送验证码", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         let okAction = UIAlertAction(title: "确定", style: .default, handler: {
             action in
