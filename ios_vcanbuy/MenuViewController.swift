@@ -17,6 +17,7 @@ class MenuViewController: UIViewController {
     var avatar:String?
     var account :String?
     var name:String?
+    var mobile:String?
 
               
     override func viewDidLoad() {
@@ -99,10 +100,12 @@ class MenuViewController: UIViewController {
                     self.account = user_d_o.value(forKey: "account") as? String
                     self.avatar = user_d_o.value(forKey: "avatar") as? String
                     self.name = user_d_o.value(forKey: "name") as? String
+                    self.mobile = user_d_o.value(forKey: "mobile") as? String
+
                     print("account: ",self.account!)
                     print("avatar: ",self.avatar!)
                     print("name: ",self.name!)
-                    
+                    print("mobile: ", self.mobile!)
                     DispatchQueue.main.async {
                         self.thLabel?.text = self.account
                         self.nameLabel?.text = self.name
@@ -219,7 +222,7 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
     // ios原生提醒框之修改密码
     func alertMsg() -> Void {
         let alertController = UIAlertController(title: "修改登录密码",
-                        message: "将给手机188*****051发送验证码", preferredStyle: .alert)
+                                                message: "将给手机"+self.mobile!+"发送验证码", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         let okAction = UIAlertAction(title: "确定", style: .default, handler: {
             action in
