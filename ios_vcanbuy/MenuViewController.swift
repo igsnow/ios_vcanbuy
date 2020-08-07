@@ -190,7 +190,7 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
         }
         else if (indexPath.row == 6){
             if(isLogin()){
-                jump(path: "resetPassword")
+                jump(path: "pwd", vc:PwdViewController())
             }else{
                 jump(path: "login")
             }

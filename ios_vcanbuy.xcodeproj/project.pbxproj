@@ -29,6 +29,7 @@
 		429939A324CFD55A00A10F94 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 429939A224CFD55A00A10F94 /* libresolv.tbd */; };
 		429939A524CFF3E400A10F94 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 429939A424CFF3E400A10F94 /* libz.tbd */; };
 		42B02A7023B4B24600516FF0 /* GuideController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B02A6F23B4B24600516FF0 /* GuideController.swift */; };
+		42B25BE124DCEA0100BDCFE0 /* PwdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B25BE024DCEA0100BDCFE0 /* PwdViewController.swift */; };
 		42C0868124C7E9FB00C5787C /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C0868024C7E9FB00C5787C /* HelpViewController.swift */; };
 		42EAE65B24D10FB700F6212F /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42EAE65A24D10FB700F6212F /* ExternalAccessory.framework */; };
 		556C037CBEB7EB6BD55FB95E /* Pods_ios_vcanbuyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56D3C510E10A1BF22C54BD2F /* Pods_ios_vcanbuyTests.framework */; };
@@ -86,6 +87,7 @@
 		429939A224CFD55A00A10F94 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		429939A424CFF3E400A10F94 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		42B02A6F23B4B24600516FF0 /* GuideController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideController.swift; sourceTree = "<group>"; };
+		42B25BE024DCEA0100BDCFE0 /* PwdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PwdViewController.swift; sourceTree = "<group>"; };
 		42C0868024C7E9FB00C5787C /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		42EAE65A24D10FB700F6212F /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		56D3C510E10A1BF22C54BD2F /* Pods_ios_vcanbuyTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ios_vcanbuyTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -186,6 +188,7 @@
 				4249802724C6EFDA00030C74 /* MenuViewController.swift */,
 				42C0868024C7E9FB00C5787C /* HelpViewController.swift */,
 				4248BEC524CF2C8D00300BD6 /* ios_vcanbuy-Bridging-Header.h */,
+				42B25BE024DCEA0100BDCFE0 /* PwdViewController.swift */,
 			);
 			path = ios_vcanbuy;
 			sourceTree = "<group>";
@@ -456,6 +459,7 @@
 				4249802624C6EF5900030C74 /* RootViewController.swift in Sources */,
 				4249802824C6EFDA00030C74 /* MenuViewController.swift in Sources */,
 				4297A61923B36DF500D75D5E /* ViewController.swift in Sources */,
+				42B25BE124DCEA0100BDCFE0 /* PwdViewController.swift in Sources */,
 				4253B9E223B5994100176B7D /* SplashController.swift in Sources */,
 				42B02A7023B4B24600516FF0 /* GuideController.swift in Sources */,
 				4297A61723B36DF500D75D5E /* AppDelegate.swift in Sources */,
