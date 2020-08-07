@@ -188,7 +188,9 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
             jump(path: "changeLanguage")
         } else if (indexPath.row == 6) {
             if (isLogin()) {
-                alertMsg()
+//                alertMsg()
+                self.jump(path: "home", vc:PwdViewController())
+
             } else {
                 jump(path: "login")
             }
@@ -228,7 +230,6 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
         let okAction = UIAlertAction(title: "确定", style: .default, handler: {
             action in
             self.sendMsg()
-//            self.jump(path: "home", vc:PwdViewController())
         })
         alertController.addAction(cancelAction)
         alertController.addAction(okAction)
@@ -256,6 +257,13 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
             do {
                 let r = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
                 print(r)
+                if((r["success"]) != nil){
+                    DispatchQueue.main.async {
+                        self.jump(path: "home", vc:PwdViewController())
+                    }
+                }else{
+                    print("验证码获取失败")
+                }
             } catch {
                 print("无法连接到服务器")
                 return

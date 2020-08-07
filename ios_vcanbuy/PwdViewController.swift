@@ -30,7 +30,7 @@ class PwdViewController: UIViewController {
             if newValue {
                 countdownTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(PwdViewController.updateTime(_:)), userInfo: nil, repeats: true)
                 
-                remainingSeconds = 5
+                remainingSeconds = 60
                 
                 sendButton.backgroundColor = UIColor.gray
             } else {
@@ -47,6 +47,9 @@ class PwdViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // 进入页面，60s倒计时开始
+//        isCounting = true
+
         self.view.backgroundColor = UIColor.white
         
         // 返回首页按钮
@@ -80,9 +83,7 @@ class PwdViewController: UIViewController {
         
         self.view.addSubview(sendButton)
         
-        
-       
-
+    
         
     }
     
