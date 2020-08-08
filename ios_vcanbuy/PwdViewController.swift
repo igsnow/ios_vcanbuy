@@ -12,6 +12,8 @@ class PwdViewController: UIViewController {
     var appDelegate = UIApplication.shared.delegate as! AppDelegate
 
     var sendButton: UIButton!
+    
+    var confirmButton: UIButton!
    
     var countdownTimer: Timer?
    
@@ -44,7 +46,7 @@ class PwdViewController: UIViewController {
             sendButton.isEnabled = !newValue
         }
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -94,6 +96,7 @@ class PwdViewController: UIViewController {
         otpField.textAlignment = .left //水平居中对齐
         otpField.contentVerticalAlignment = .center  //垂直居中对齐
         otpField.clearButtonMode = .whileEditing  //编辑时出现清除按钮
+        otpField.layer.borderWidth = 1.0
         let paddingOtpView : UIView = UIView(frame: CGRect(x: 0, y: 0, width: 8, height: 20))
         otpField.leftView = paddingOtpView
         otpField.leftViewMode = .always
@@ -112,13 +115,14 @@ class PwdViewController: UIViewController {
         pwdField.leftViewMode = .always
         self.view.addSubview(pwdField)
         
-        let confirmButton = UIButton()
+        confirmButton = UIButton()
         confirmButton.frame = CGRect(x: 15, y: 250, width: frame.width - 30, height: 50)
         confirmButton.backgroundColor = UIColor.orange
         confirmButton.setTitleColor(UIColor.white, for: .normal)
         confirmButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
         confirmButton.setTitle("确认修改", for: .normal)
-        confirmButton.addTarget(self, action: #selector(PwdViewController.sendButtonClick(_:)), for: .touchUpInside)
+        confirmButton.alpha = 0.5
+        confirmButton.addTarget(self, action: #selector(PwdViewController.confirmButtonClick), for: .touchUpInside)
         
         self.view.addSubview(confirmButton)
         
@@ -150,6 +154,11 @@ class PwdViewController: UIViewController {
     
     @objc func updateTime(_ timer: Timer) {
         remainingSeconds -= 1
+    }
+    
+    @objc func confirmButtonClick(_ sender: UIButton) {
+        print("confirm rewrite")
+        confirmButton.alpha = 1.0
     }
 
     override func didReceiveMemoryWarning() {
