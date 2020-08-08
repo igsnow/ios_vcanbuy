@@ -19,10 +19,10 @@ class PwdViewController: UIViewController {
    
     var remainingSeconds: Int = 0 {
         willSet {
-            sendButton.setTitle("(\(newValue)秒后重新获取)", for: .normal)
+            sendButton.setTitle("\(newValue)秒后重新发送", for: .normal)
            
             if newValue <= 0 {
-                sendButton.setTitle("获取验证码", for: .normal)
+                sendButton.setTitle("重新发送", for: .normal)
                 isCounting = false
             }
         }
@@ -79,16 +79,16 @@ class PwdViewController: UIViewController {
         self.view.addSubview(titleLabel)
         
         sendButton = UIButton()
-        sendButton.frame = CGRect(x: frame.width - 145, y: 120, width: 130, height: 50)
+        sendButton.frame = CGRect(x: frame.width - 145, y: 120, width: 130, height: 55)
         sendButton.backgroundColor = UIColor.orange
         sendButton.setTitleColor(UIColor.white, for: .normal)
         sendButton.titleLabel?.font = UIFont.systemFont(ofSize: 14)
-        sendButton.setTitle("获取验证码", for: .normal)
+        sendButton.setTitle("重新发送", for: .normal)
         sendButton.addTarget(self, action: #selector(PwdViewController.sendButtonClick(_:)), for: .touchUpInside)
         
         self.view.addSubview(sendButton)
         
-        let otpField = UITextField(frame: CGRect(x:15, y:120, width:frame.width - 165, height:50))
+        let otpField = UITextField(frame: CGRect(x:15, y:120, width:frame.width - 165, height:55))
         otpField.borderStyle = UITextField.BorderStyle.line
         otpField.placeholder="请输入验证码"
         otpField.adjustsFontSizeToFitWidth=true  //当文字超出文本框宽度时，自动调整文字大小
@@ -102,7 +102,7 @@ class PwdViewController: UIViewController {
         otpField.leftViewMode = .always
         self.view.addSubview(otpField)
         
-        let pwdField = UITextField(frame: CGRect(x:15, y:180, width:frame.width - 30, height:50))
+        let pwdField = UITextField(frame: CGRect(x:15, y:185, width:frame.width - 30, height:55))
         pwdField.borderStyle = UITextField.BorderStyle.line
         pwdField.placeholder="请输入新密码"
         pwdField.adjustsFontSizeToFitWidth=true
@@ -116,18 +116,19 @@ class PwdViewController: UIViewController {
         self.view.addSubview(pwdField)
         
         confirmButton = UIButton()
-        confirmButton.frame = CGRect(x: 15, y: 250, width: frame.width - 30, height: 50)
+        confirmButton.frame = CGRect(x: 15, y: 260, width: frame.width - 30, height: 55)
         confirmButton.backgroundColor = UIColor.orange
         confirmButton.setTitleColor(UIColor.white, for: .normal)
         confirmButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
         confirmButton.setTitle("确认修改", for: .normal)
         confirmButton.alpha = 0.5
+        confirmButton.isEnabled = false
         confirmButton.addTarget(self, action: #selector(PwdViewController.confirmButtonClick), for: .touchUpInside)
         
         self.view.addSubview(confirmButton)
         
         let tipLabel = UILabel(frame:  CGRect(x:0,
-                                          y:300,
+                                          y:320,
                                           width: CGFloat(frame.size.width),
                                           height: 50))
         let secretMobile = appDelegate.secretMobile
