@@ -14,7 +14,7 @@ class MenuViewController: UIViewController {
     var appDelegate = UIApplication.shared.delegate as! AppDelegate
     var prefix: String?
 
-    var titlesArray = ["用户条款", "我的钱包", "我的订单", "我的箱子", "我的优惠券", "切换语言", "更改密码"]
+    var titlesArray = ["用户条款", "我的钱包", "我的订单", "我的箱子", "我的优惠券", "切换语言", "修改密码"]
     var iconImageView: UIImageView?
     var thLabel: UILabel?
     var nameLabel: UILabel?
@@ -189,6 +189,12 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
         } else if (indexPath.row == 6) {
             if (isLogin()) {
 //                alertMsg()
+                
+                // 加密展示的手机号66-950607788 => 66-95****788
+               let startIndex = (self.mobile?.index(self.mobile!.startIndex, offsetBy: 6))!
+               let endIndex = self.mobile?.index(self.mobile!.startIndex, offsetBy: 8)
+               let secretMobile = self.mobile?.replacingCharacters(in: startIndex...endIndex!, with: "****")
+               appDelegate.secretMobile = secretMobile
                 self.jump(path: "home", vc:PwdViewController())
 
             } else {
@@ -199,9 +205,8 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
 
     // 单例传值跳转到相应的h5页面
     func jump(path: String, vc: UIViewController = RootViewController()) -> Void {
-        let rootVC = UIApplication.shared.delegate as! AppDelegate
-        rootVC.value = path
-        rootVC.window?.rootViewController = vc
+        appDelegate.value = path
+        appDelegate.window?.rootViewController = vc
     }
 
     // 判断h5页面是否登录
@@ -223,7 +228,8 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
         let startIndex = (self.mobile?.index(self.mobile!.startIndex, offsetBy: 6))!
         let endIndex = self.mobile?.index(self.mobile!.startIndex, offsetBy: 8)
         let secretMobile = self.mobile?.replacingCharacters(in: startIndex...endIndex!, with: "****")
-
+        appDelegate.secretMobile = secretMobile
+        
         let alertController = UIAlertController(title: "修改登录密码",
                 message: "将给手机" + secretMobile! + "发送验证码", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)

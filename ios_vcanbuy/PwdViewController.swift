@@ -9,7 +9,8 @@
 import UIKit
 
 class PwdViewController: UIViewController {
-    
+    var appDelegate = UIApplication.shared.delegate as! AppDelegate
+
     var sendButton: UIButton!
    
     var countdownTimer: Timer?
@@ -69,9 +70,9 @@ class PwdViewController: UIViewController {
                                           width: CGFloat(frame.size.width),
                                           height: 50))
         
-        titleLabel.text = "更改密码"
+        titleLabel.text = "修改密码"
         titleLabel.textColor = UIColor.black
-        titleLabel.font = UIFont(name: "Arial-BoldMT", size: 20)
+        titleLabel.font = UIFont(name: "TimesNewRomanPSMT", size: 20)
         titleLabel.textAlignment = .center
         self.view.addSubview(titleLabel)
         
@@ -120,6 +121,17 @@ class PwdViewController: UIViewController {
         confirmButton.addTarget(self, action: #selector(PwdViewController.sendButtonClick(_:)), for: .touchUpInside)
         
         self.view.addSubview(confirmButton)
+        
+        let tipLabel = UILabel(frame:  CGRect(x:0,
+                                          y:300,
+                                          width: CGFloat(frame.size.width),
+                                          height: 50))
+        let secretMobile = appDelegate.secretMobile
+        tipLabel.text = "已向手机 " + secretMobile! + " 发送验证码"
+        tipLabel.textColor = UIColor.gray
+        tipLabel.font = UIFont(name: "ArialUnicodeMS", size: 15)
+        tipLabel.textAlignment = .center
+        self.view.addSubview(tipLabel)
     
         
     }
