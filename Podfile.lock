@@ -5,12 +5,14 @@ PODS:
   - RxCocoa (4.5.0):
     - RxSwift (>= 4.4.2, ~> 4.4)
   - RxSwift (4.5.0)
+  - SCLAlertView (0.8)
   - SwiftyJSON (5.0.0)
 
 DEPENDENCIES:
   - JPush
   - RxCocoa
   - RxSwift
+  - SCLAlertView
   - SwiftyJSON
 
 SPEC REPOS:
@@ -20,14 +22,17 @@ SPEC REPOS:
     - RxCocoa
     - RxSwift
     - SwiftyJSON
+  trunk:
+    - SCLAlertView
 
 SPEC CHECKSUMS:
   JCore: a7f1dead960d77a97717c73ea8b0aa5b33706491
   JPush: 8ce888d6dedfa417e90c8b6bc87405a16ce2e699
   RxCocoa: cbf70265dc65a981d4ac982e513c10cf23df24a0
   RxSwift: f172070dfd1a93d70a9ab97a5a01166206e1c575
+  SCLAlertView: 6a77bb2edfc65e04dbe57725546cb4107a506b85
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
 
-PODFILE CHECKSUM: 54af57da2f1470c36a65364bbab2b6117f166b4c
+PODFILE CHECKSUM: 492e831867bbb46cb2578a3afd038e51c0035d4f
 
 COCOAPODS: 1.9.3

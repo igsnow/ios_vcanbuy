@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import SCLAlertView
 
 class PwdViewController: UIViewController {
     var session = URLSession(configuration: .default)
@@ -206,8 +207,17 @@ class PwdViewController: UIViewController {
     
     @objc func confirmButtonClick(_ sender: UIButton) {
         print("confirm rewrite", self.otpText!, self.pwdText!)
-        verifyOtp(msg: self.otpText!)
-        
+        let v1 = verifyOtp(msg: self.otpText!)
+        if(v1) {
+            let v2 = verifyPwd(msg: self.pwdText!)
+            if(v2){
+                SCLAlertView().showSuccess("成功", subTitle: "格式正确，开始注册")
+            }else{
+                SCLAlertView().showError("错误", subTitle: "密码格式不正确")
+            }
+        }else{
+            SCLAlertView().showError("错误", subTitle: "验证码格式不正确")
+        }
     }
     
     // 发送验证码
@@ -248,6 +258,15 @@ class PwdViewController: UIViewController {
         let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
         let isValid = predicate.evaluate(with: msg)
         print(isValid ? "正确的验证码" : "错误的验证码")
+        return isValid ? true : false
+    }
+    
+    // 正则校验密码
+    func verifyPwd(msg: String) -> Bool {
+        let regex = "^(\\d|\\w|\\W|\\S){6,20}$"
+        let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
+        let isValid = predicate.evaluate(with: msg)
+        print(isValid ? "正确的密码" : "错误的密码")
         return isValid ? true : false
     }
 
