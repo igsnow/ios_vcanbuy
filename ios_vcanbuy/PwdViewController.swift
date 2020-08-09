@@ -269,6 +269,38 @@ class PwdViewController: UIViewController {
         print(isValid ? "正确的密码" : "错误的密码")
         return isValid ? true : false
     }
+    
+    // 修改密码
+    func rewritePwd() -> Void {
+        let url = prefix! + "/gateway/user/reset_password_by_mobile"
+    
+        var request = URLRequest(url: URL(string: url)!)
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        // 设置要post的内容，字典格式
+        let postData = ["mobile":self.appDelegate.realMobile!, "password":"", "captcha":""]
+        print("postdata: ",postData)
+       
+        let postString = postData.compactMap({ (key, value) -> String in
+            return "\(key)=\(String(describing: value))"
+        }).joined(separator: "&")
+        request.httpBody = postString.data(using: .utf8)
+        let task = session.dataTask(with: request) {(data, response, error) in
+           do {
+               let r = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
+               print(r)
+               if((r["success"]) != nil){
+                   print("密码修改成功")
+               }else{
+                   print("密码修改失败")
+               }
+           } catch {
+               print("无法连接到服务器")
+               return
+           }
+        }
+        task.resume()
+   }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
