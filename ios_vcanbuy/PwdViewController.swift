@@ -7,9 +7,13 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class PwdViewController: UIViewController {
     var appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
+    var disposeBag = DisposeBag()
 
     var sendButton: UIButton!
     
@@ -101,7 +105,7 @@ class PwdViewController: UIViewController {
         otpField.leftView = paddingOtpView
         otpField.leftViewMode = .always
         self.view.addSubview(otpField)
-        
+       
         let pwdField = UITextField(frame: CGRect(x:15, y:185, width:frame.width - 30, height:55))
         pwdField.borderStyle = UITextField.BorderStyle.line
         pwdField.placeholder="请输入新密码"
@@ -137,7 +141,41 @@ class PwdViewController: UIViewController {
         tipLabel.font = UIFont(name: "ArialUnicodeMS", size: 15)
         tipLabel.textAlignment = .center
         self.view.addSubview(tipLabel)
-    
+        
+        let label = UILabel(frame:CGRect(x:20, y:400, width:300, height:30))
+        self.view.addSubview(label)
+        
+        // 双向绑定
+//        let input = otpField.rx.text.orEmpty.asDriver().throttle(0.3)
+//        input.drive(pwdField.rx.text).disposed(by: disposeBag)
+//        input.map{"当前字数：\($0.count)"}.drive(label.rx.text).disposed(by: disposeBag)
+//
+//        input.map{$0.count > 5}.drive(confirmButton.rx.isEnabled).disposed(by:  disposeBag)
+
+        
+        //        Observable.combineLatest(otpField.rx.text.orEmpty, pwdField.rx.text.orEmpty) {
+        //        textValue1, textValue2 -> String in
+        //            return "你输入的号码是：\(textValue1)-\(textValue2)"
+        //        }
+        //        .map { $0 }
+        //        .bind(to: label.rx.text)
+        //        .disposed(by: disposeBag)
+
+        let confirmButtonEnabled:Observable<Bool>
+
+        confirmButtonEnabled = Observable.combineLatest(otpField.rx.text.orEmpty, pwdField.rx.text.orEmpty) { (username, password) in
+                return !username.isEmpty && !password.isEmpty
+        }.distinctUntilChanged().share(replay: 1)
+        
+        confirmButtonEnabled.subscribe(onNext: { [weak self](valid) in
+            self?.confirmButton.isEnabled = valid
+            self?.confirmButton.alpha = valid ? 1 : 0.5
+        }).disposed(by: disposeBag)
+        
+        
+
+        
+        
         
     }
     
@@ -159,7 +197,7 @@ class PwdViewController: UIViewController {
     
     @objc func confirmButtonClick(_ sender: UIButton) {
         print("confirm rewrite")
-        confirmButton.alpha = 1.0
+        
     }
 
     override func didReceiveMemoryWarning() {
