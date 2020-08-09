@@ -51,6 +51,10 @@ class PwdViewController: UIViewController {
         }
     }
     
+    var otpText:String?  // 输入的验证码
+    
+    var pwdText:String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -146,34 +150,27 @@ class PwdViewController: UIViewController {
         self.view.addSubview(label)
         
         // 双向绑定
-//        let input = otpField.rx.text.orEmpty.asDriver().throttle(0.3)
-//        input.drive(pwdField.rx.text).disposed(by: disposeBag)
-//        input.map{"当前字数：\($0.count)"}.drive(label.rx.text).disposed(by: disposeBag)
-//
-//        input.map{$0.count > 5}.drive(confirmButton.rx.isEnabled).disposed(by:  disposeBag)
-
-        
-        //        Observable.combineLatest(otpField.rx.text.orEmpty, pwdField.rx.text.orEmpty) {
-        //        textValue1, textValue2 -> String in
-        //            return "你输入的号码是：\(textValue1)-\(textValue2)"
-        //        }
-        //        .map { $0 }
-        //        .bind(to: label.rx.text)
-        //        .disposed(by: disposeBag)
-
         let confirmButtonEnabled:Observable<Bool>
 
         confirmButtonEnabled = Observable.combineLatest(otpField.rx.text.orEmpty, pwdField.rx.text.orEmpty) { (username, password) in
                 return !username.isEmpty && !password.isEmpty
         }.distinctUntilChanged().share(replay: 1)
         
+        // 确认按钮是否禁用
         confirmButtonEnabled.subscribe(onNext: { [weak self](valid) in
             self?.confirmButton.isEnabled = valid
             self?.confirmButton.alpha = valid ? 1 : 0.5
         }).disposed(by: disposeBag)
         
+        otpField.rx.text.orEmpty.asObservable()
+        .subscribe(onNext: {
+            self.otpText = $0
+        }).disposed(by: disposeBag)
         
-
+        pwdField.rx.text.orEmpty.asObservable()
+        .subscribe(onNext: {
+            self.pwdText = $0
+        }).disposed(by: disposeBag)
         
         
         
@@ -196,7 +193,7 @@ class PwdViewController: UIViewController {
     }
     
     @objc func confirmButtonClick(_ sender: UIButton) {
-        print("confirm rewrite")
+        print("confirm rewrite", self.otpText!, self.pwdText!)
         
     }
 
