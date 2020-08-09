@@ -206,6 +206,7 @@ class PwdViewController: UIViewController {
     
     @objc func confirmButtonClick(_ sender: UIButton) {
         print("confirm rewrite", self.otpText!, self.pwdText!)
+        verifyOtp(msg: self.otpText!)
         
     }
     
@@ -239,6 +240,15 @@ class PwdViewController: UIViewController {
             }
         }
         task.resume()
+    }
+    
+    // 正则校验验证码
+    func verifyOtp(msg: String) -> Bool {
+        let regex = "^\\d{4}$"
+        let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
+        let isValid = predicate.evaluate(with: msg)
+        print(isValid ? "正确的验证码" : "错误的验证码")
+        return isValid ? true : false
     }
 
     override func didReceiveMemoryWarning() {

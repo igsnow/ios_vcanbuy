@@ -48,7 +48,7 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, WKSc
         
 //        let urlStr = "http://m.vcanbuy.com/#/"
 //        let urlStr = "http://120.27.228.29:8081/#/"
-        let urlStr = "http://192.168.1.116:8088/#/"
+        let urlStr = "http://192.168.0.108:8088/#/"
         
         let myURL = URL(string:urlStr + hash)
     
