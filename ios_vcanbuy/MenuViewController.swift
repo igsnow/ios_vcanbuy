@@ -195,6 +195,7 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
                let endIndex = self.mobile?.index(self.mobile!.startIndex, offsetBy: 8)
                let secretMobile = self.mobile?.replacingCharacters(in: startIndex...endIndex!, with: "****")
                appDelegate.secretMobile = secretMobile
+                appDelegate.realMobile = self.mobile
                 self.jump(path: "home", vc:PwdViewController())
 
             } else {

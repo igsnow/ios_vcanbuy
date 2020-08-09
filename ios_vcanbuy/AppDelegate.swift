@@ -15,7 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var value:String?           // 单例传值
     var isDev:Bool = false      // 当前环境是否是测试环境
-    var secretMobile:String?    // 修改密码页面的手机号提示
+    var secretMobile:String?    // 加密手机号
+    var realMobile:String?      // 用户手机号
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.

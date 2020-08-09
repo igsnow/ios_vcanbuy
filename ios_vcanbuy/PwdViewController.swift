@@ -11,13 +11,19 @@ import RxSwift
 import RxCocoa
 
 class PwdViewController: UIViewController {
+    var session = URLSession(configuration: .default)
+    
     var appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
+    var prefix: String?
     
     var disposeBag = DisposeBag()
 
     var sendButton: UIButton!
     
     var confirmButton: UIButton!
+    
+    var tipLabel: UILabel!
    
     var countdownTimer: Timer?
    
@@ -37,7 +43,7 @@ class PwdViewController: UIViewController {
             if newValue {
                 countdownTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(PwdViewController.updateTime(_:)), userInfo: nil, repeats: true)
                 
-                remainingSeconds = 60
+                remainingSeconds = 10
                 
                 sendButton.backgroundColor = UIColor.gray
             } else {
@@ -51,12 +57,20 @@ class PwdViewController: UIViewController {
         }
     }
     
+    var mobileTip:String?
+    
     var otpText:String?  // 输入的验证码
     
     var pwdText:String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if (appDelegate.isDev) {
+            prefix = "http://120.27.228.29:8081"
+        } else {
+            prefix = "http://m.vcanbuy.com"
+        }
         
         // 进入页面，60s倒计时开始
         DispatchQueue.main.async {
@@ -135,19 +149,16 @@ class PwdViewController: UIViewController {
         
         self.view.addSubview(confirmButton)
         
-        let tipLabel = UILabel(frame:  CGRect(x:0,
+        tipLabel = UILabel(frame:  CGRect(x:0,
                                           y:320,
                                           width: CGFloat(frame.size.width),
                                           height: 50))
-        let secretMobile = appDelegate.secretMobile
-        tipLabel.text = "已向手机 " + secretMobile! + " 发送验证码"
+        mobileTip = appDelegate.secretMobile
+        tipLabel.text = "已向手机 " + mobileTip! + " 发送验证码"
         tipLabel.textColor = UIColor.gray
         tipLabel.font = UIFont(name: "ArialUnicodeMS", size: 15)
         tipLabel.textAlignment = .center
         self.view.addSubview(tipLabel)
-        
-        let label = UILabel(frame:CGRect(x:20, y:400, width:300, height:30))
-        self.view.addSubview(label)
         
         // 双向绑定
         let confirmButtonEnabled:Observable<Bool>
@@ -184,8 +195,9 @@ class PwdViewController: UIViewController {
     }
     
     @objc func sendButtonClick(_ sender: UIButton) {
-        print("start timer")
+        print("reget msg")
         isCounting = true
+        sendMsg()
     }
     
     @objc func updateTime(_ timer: Timer) {
@@ -195,6 +207,38 @@ class PwdViewController: UIViewController {
     @objc func confirmButtonClick(_ sender: UIButton) {
         print("confirm rewrite", self.otpText!, self.pwdText!)
         
+    }
+    
+    // 发送验证码
+    func sendMsg() -> Void {
+        let url = prefix! + "/gateway/msg/send_reset_password_sms_captcha"
+        
+        var request = URLRequest(url: URL(string: url)!)
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        // 设置要post的内容，字典格式
+        let postData = ["mobile":self.appDelegate.realMobile!]
+        print("postdata: ",postData)
+        
+        let postString = postData.compactMap({ (key, value) -> String in
+            return "\(key)=\(String(describing: value))"
+        }).joined(separator: "&")
+        request.httpBody = postString.data(using: .utf8)
+        let task = session.dataTask(with: request) {(data, response, error) in
+            do {
+                let r = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
+                print(r)
+                if((r["success"]) != nil){
+                    print("验证码已发送")
+                }else{
+                    print("验证码获取失败")
+                }
+            } catch {
+                print("无法连接到服务器")
+                return
+            }
+        }
+        task.resume()
     }
 
     override func didReceiveMemoryWarning() {
