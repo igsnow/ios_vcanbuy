@@ -203,7 +203,6 @@ class PwdViewController: UIViewController {
     }
     
     @objc func sendButtonClick(_ sender: UIButton) {
-        print("reget msg")
         isCounting = true
         sendMsg()
     }
@@ -247,10 +246,12 @@ class PwdViewController: UIViewController {
                 let r = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
                 print(r)
                 if((r["success"]) != nil){
+                    print("send msg ok")
                     DispatchQueue.main.async {
                         SCLAlertView().showSuccess("Success", subTitle: "验证码发送成功")
                     }
                 }else{
+                    print("send msg no ok")
                     DispatchQueue.main.async {
                         SCLAlertView().showError("Error", subTitle: "验证码发送失败")
                     }
@@ -301,12 +302,12 @@ class PwdViewController: UIViewController {
                let r = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
                print(r)
             if((r["success"]) != nil){
-                    print("ok")
+                    print("rwrite ok")
                     DispatchQueue.main.async {
                         SCLAlertView().showSuccess("Success", subTitle: "密码修改成功")
                     }
                }else{
-                    print("no ok")
+                    print("rwrite no ok")
                     DispatchQueue.main.async {
                         SCLAlertView().showError("Error", subTitle: "密码修改失败")
                     }
