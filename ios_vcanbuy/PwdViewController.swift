@@ -10,6 +10,8 @@ import UIKit
 import RxSwift
 import RxCocoa
 import SCLAlertView
+import Foundation
+import CommonCrypto
 
 class PwdViewController: UIViewController {
     var session = URLSession(configuration: .default)
@@ -66,6 +68,11 @@ class PwdViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // 测试md5
+        let str = "igsnow"
+        let sign = str.md5()
+        print("md5 in \(sign)")
         
         if (appDelegate.isDev) {
             prefix = "http://120.27.228.29:8081"
@@ -278,7 +285,7 @@ class PwdViewController: UIViewController {
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
         // 设置要post的内容，字典格式
-        let postData = ["mobile":self.appDelegate.realMobile!, "password":"", "captcha":""]
+        let postData = ["mobile":self.appDelegate.realMobile!, "password":self.pwdText?.md5(), "captcha":self.otpText]
         print("postdata: ",postData)
        
         let postString = postData.compactMap({ (key, value) -> String in
@@ -307,5 +314,21 @@ class PwdViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+}
+
+extension String {
+    func md5() -> String {
+        let str = self.cString(using: String.Encoding.utf8)
+        let strLen = CUnsignedInt(self.lengthOfBytes(using: String.Encoding.utf8))
+        let digestLen = Int(CC_MD5_DIGEST_LENGTH)
+        let result = UnsafeMutablePointer<UInt8>.allocate(capacity: 16)
+        CC_MD5(str!, strLen, result)
+        let hash = NSMutableString()
+        for i in 0 ..< digestLen {
+            hash.appendFormat("%02x", result[i])
+        }
+        free(result)
+        return String(format: hash as String)
+    }
 }
 
