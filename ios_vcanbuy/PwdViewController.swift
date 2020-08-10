@@ -221,6 +221,11 @@ class PwdViewController: UIViewController {
         }
     }
     
+    //  第一个按钮点击事件相应
+    @objc func firstButtonTapped() {
+        print("第一个按钮点击")
+    }
+    
     // 发送验证码
     func sendMsg() -> Void {
         let url = prefix! + "/gateway/msg/send_reset_password_sms_captcha"
@@ -296,7 +301,13 @@ class PwdViewController: UIViewController {
                 print(r)
                 if(r["success"]! as! Bool == true){
                         DispatchQueue.main.async {
-                            SCLAlertView().showSuccess("Success", subTitle: "密码修改成功")
+                            let alertView = SCLAlertView()
+                            alertView.addButton("OK") {
+                                // 需改密码后跳转到个人中心页
+                                self.appDelegate.value = "mine"
+                                self.appDelegate.window?.rootViewController = RootViewController()
+                            }
+                            alertView.showSuccess("Success", subTitle: "密码修改成功", closeButtonTitle: "Cancel")
                         }
                     }else{
                         if(r["error_code"]! as! Int == 10100004){
