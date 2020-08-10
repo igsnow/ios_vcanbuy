@@ -69,11 +69,6 @@ class PwdViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // 测试md5
-        let str = "igsnow"
-        let sign = str.md5()
-        print("md5 in \(sign)")
-        
         if (appDelegate.isDev) {
             prefix = "http://120.27.228.29:8081"
         } else {
@@ -245,19 +240,19 @@ class PwdViewController: UIViewController {
             do {
                 let r = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
                 print(r)
-                if((r["success"]) != nil){
-                    print("send msg ok")
+                if(r["success"]! as! Bool == true){
                     DispatchQueue.main.async {
                         SCLAlertView().showSuccess("Success", subTitle: "验证码发送成功")
                     }
                 }else{
-                    print("send msg no ok")
                     DispatchQueue.main.async {
                         SCLAlertView().showError("Error", subTitle: "验证码发送失败")
                     }
                 }
             } catch {
-                print("无法连接到服务器")
+                DispatchQueue.main.async {
+                    SCLAlertView().showError("Error", subTitle: "系统错误")
+                }
                 return
             }
         }
@@ -269,7 +264,6 @@ class PwdViewController: UIViewController {
         let regex = "^\\d{4}$"
         let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
         let isValid = predicate.evaluate(with: msg)
-        print(isValid ? "正确的验证码" : "错误的验证码")
         return isValid ? true : false
     }
     
@@ -278,7 +272,6 @@ class PwdViewController: UIViewController {
         let regex = "^(\\d|\\w|\\W|\\S){6,20}$"
         let predicate = NSPredicate(format: "SELF MATCHES %@", regex)
         let isValid = predicate.evaluate(with: msg)
-        print(isValid ? "正确的密码" : "错误的密码")
         return isValid ? true : false
     }
     
@@ -299,22 +292,22 @@ class PwdViewController: UIViewController {
         request.httpBody = postString.data(using: .utf8)
         let task = session.dataTask(with: request) {(data, response, error) in
            do {
-               let r = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
-               print(r)
-            if((r["success"]) != nil){
-                    print("rwrite ok")
-                    DispatchQueue.main.async {
-                        SCLAlertView().showSuccess("Success", subTitle: "密码修改成功")
+                let r = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
+                print(r)
+                if(r["success"]! as! Bool == true){
+                        DispatchQueue.main.async {
+                            SCLAlertView().showSuccess("Success", subTitle: "密码修改成功")
+                        }
+                    }else{
+                        DispatchQueue.main.async {
+                            SCLAlertView().showError("Error", subTitle: "密码修改失败")
+                        }
                     }
-               }else{
-                    print("rwrite no ok")
-                    DispatchQueue.main.async {
-                        SCLAlertView().showError("Error", subTitle: "密码修改失败")
-                    }
-               }
            } catch {
-               print("无法连接到服务器")
-               return
+                DispatchQueue.main.async {
+                    SCLAlertView().showError("Error", subTitle: "系统错误")
+                }
+                return
            }
         }
         task.resume()

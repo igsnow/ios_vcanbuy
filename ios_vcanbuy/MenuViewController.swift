@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SCLAlertView
 
 class MenuViewController: UIViewController {
 
@@ -92,38 +93,45 @@ class MenuViewController: UIViewController {
         let task = session.dataTask(with: request) { (data, response, error) in
             do {
                 let r = try JSONSerialization.jsonObject(with: data!, options: []) as! NSDictionary
-                let data = r.value(forKey: "data") as! NSDictionary
+                
+                if(r["success"]! as! Bool == true){
+                    let data = r.value(forKey: "data") as! NSDictionary
+                    if data["user_d_o"] is NSNull {
+                        print("请先登录")
+                    } else {
+                        let user_d_o = data.value(forKey: "user_d_o") as! NSDictionary
+                        self.account = user_d_o.value(forKey: "account") as? String
+                        self.avatar = user_d_o.value(forKey: "avatar") as? String
+                        self.name = user_d_o.value(forKey: "name") as? String
+                        self.mobile = user_d_o.value(forKey: "mobile") as? String
 
-                if data["user_d_o"] is NSNull {
-                    print("请先登录")
-                } else {
-                    let user_d_o = data.value(forKey: "user_d_o") as! NSDictionary
-                    self.account = user_d_o.value(forKey: "account") as? String
-                    self.avatar = user_d_o.value(forKey: "avatar") as? String
-                    self.name = user_d_o.value(forKey: "name") as? String
-                    self.mobile = user_d_o.value(forKey: "mobile") as? String
+                        print("account: ", self.account!)
+                        print("avatar: ", self.avatar!)
+                        print("name: ", self.name!)
+                        print("mobile: ", self.mobile!)
+                        DispatchQueue.main.async {
+                            self.thLabel?.text = self.account
+                            self.nameLabel?.text = self.name
 
-                    print("account: ", self.account!)
-                    print("avatar: ", self.avatar!)
-                    print("name: ", self.name!)
-                    print("mobile: ", self.mobile!)
-                    DispatchQueue.main.async {
-                        self.thLabel?.text = self.account
-                        self.nameLabel?.text = self.name
+    //                        let imgUrl = self.avatar
+    //                        let urlStr = NSURL(string: imgUrl!)
+    //                        let data = NSData(contentsOf: urlStr! as URL)
+    //                        if(data != nil){
+    //                            self.iconImageView?.image = UIImage(data: data! as Data)
+    //                        }else{
+    //                            self.iconImageView?.image = UIImage(named: "avatar")
+    //                        }
 
-//                        let imgUrl = self.avatar
-//                        let urlStr = NSURL(string: imgUrl!)
-//                        let data = NSData(contentsOf: urlStr! as URL)
-//                        if(data != nil){
-//                            self.iconImageView?.image = UIImage(data: data! as Data)
-//                        }else{
-//                            self.iconImageView?.image = UIImage(named: "avatar")
-//                        }
-
+                        }
                     }
+                }else{
+                    print("用户信息获取失败")
                 }
+                
             } catch {
-                print("无法连接到服务器")
+                DispatchQueue.main.async {
+                    SCLAlertView().showError("Error", subTitle: "系统错误")
+                }
                 return
             }
         }
@@ -264,15 +272,19 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
             do {
                 let r = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
                 print(r)
-                if((r["success"]) != nil){
+                if(r["success"]! as! Bool == true){
                     DispatchQueue.main.async {
                         self.jump(path: "home", vc:PwdViewController())
                     }
                 }else{
-                    print("验证码获取失败")
+                   DispatchQueue.main.async {
+                       SCLAlertView().showError("Error", subTitle: "验证码发送失败")
+                   }
                 }
             } catch {
-                print("无法连接到服务器")
+                DispatchQueue.main.async {
+                    SCLAlertView().showError("Error", subTitle: "系统错误")
+                }
                 return
             }
         }
