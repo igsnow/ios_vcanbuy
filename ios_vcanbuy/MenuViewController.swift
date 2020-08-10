@@ -277,9 +277,15 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
                         self.jump(path: "home", vc:PwdViewController())
                     }
                 }else{
-                   DispatchQueue.main.async {
-                       SCLAlertView().showError("Error", subTitle: "验证码发送失败")
-                   }
+                    if(r["error_code"]! as! Int == 666){
+                        DispatchQueue.main.async {
+                            SCLAlertView().showError("Error", subTitle: "请勿频繁操作")
+                        }
+                        return
+                    }
+                    DispatchQueue.main.async {
+                        SCLAlertView().showError("Error", subTitle: "验证码发送失败")
+                    }
                 }
             } catch {
                 DispatchQueue.main.async {

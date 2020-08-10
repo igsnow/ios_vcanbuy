@@ -250,6 +250,12 @@ class PwdViewController: UIViewController {
                         SCLAlertView().showSuccess("Success", subTitle: "验证码发送成功")
                     }
                 }else{
+                    if(r["error_code"]! as! Int == 666){
+                        DispatchQueue.main.async {
+                            SCLAlertView().showError("Error", subTitle: "请勿频繁操作")
+                        }
+                        return
+                    }
                     DispatchQueue.main.async {
                         SCLAlertView().showError("Error", subTitle: "验证码发送失败")
                     }
