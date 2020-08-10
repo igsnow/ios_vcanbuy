@@ -299,6 +299,12 @@ class PwdViewController: UIViewController {
                             SCLAlertView().showSuccess("Success", subTitle: "密码修改成功")
                         }
                     }else{
+                        if(r["error_code"]! as! Int == 10100004){
+                            DispatchQueue.main.async {
+                                SCLAlertView().showError("Error", subTitle: "验证码不正确或已过期")
+                            }
+                            return
+                        }
                         DispatchQueue.main.async {
                             SCLAlertView().showError("Error", subTitle: "密码修改失败")
                         }
