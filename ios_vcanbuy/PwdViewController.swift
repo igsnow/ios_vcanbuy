@@ -247,9 +247,13 @@ class PwdViewController: UIViewController {
                 let r = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
                 print(r)
                 if((r["success"]) != nil){
-                    SCLAlertView().showSuccess("Success", subTitle: "验证码发送成功")
+                    DispatchQueue.main.async {
+                        SCLAlertView().showSuccess("Success", subTitle: "验证码发送成功")
+                    }
                 }else{
-                    SCLAlertView().showError("Error", subTitle: "验证码发送失败")
+                    DispatchQueue.main.async {
+                        SCLAlertView().showError("Error", subTitle: "验证码发送失败")
+                    }
                 }
             } catch {
                 print("无法连接到服务器")
@@ -296,10 +300,16 @@ class PwdViewController: UIViewController {
            do {
                let r = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
                print(r)
-               if((r["success"]) != nil){
-                   SCLAlertView().showSuccess("Success", subTitle: "密码修改成功")
+            if((r["success"]) != nil){
+                    print("ok")
+                    DispatchQueue.main.async {
+                        SCLAlertView().showSuccess("Success", subTitle: "密码修改成功")
+                    }
                }else{
-                   SCLAlertView().showError("Error", subTitle: "密码修改失败")
+                    print("no ok")
+                    DispatchQueue.main.async {
+                        SCLAlertView().showError("Error", subTitle: "密码修改失败")
+                    }
                }
            } catch {
                print("无法连接到服务器")
