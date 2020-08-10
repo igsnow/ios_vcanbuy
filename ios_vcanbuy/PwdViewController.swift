@@ -234,7 +234,7 @@ class PwdViewController: UIViewController {
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
         // 设置要post的内容，字典格式
-        let postData = ["mobile":self.appDelegate.realMobile!]
+        let postData = ["mobile":(self.appDelegate.realMobile)!]
         print("postdata: ",postData)
         
         let postString = postData.compactMap({ (key, value) -> String in
