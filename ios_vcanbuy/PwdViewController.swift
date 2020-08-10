@@ -218,12 +218,12 @@ class PwdViewController: UIViewController {
         if(v1) {
             let v2 = verifyPwd(msg: self.pwdText!)
             if(v2){
-                SCLAlertView().showSuccess("成功", subTitle: "格式正确，开始注册")
+                rewritePwd()
             }else{
-                SCLAlertView().showError("错误", subTitle: "密码格式不正确")
+                SCLAlertView().showError("Error", subTitle: "密码格式不正确")
             }
         }else{
-            SCLAlertView().showError("错误", subTitle: "验证码格式不正确")
+            SCLAlertView().showError("Error", subTitle: "验证码格式不正确")
         }
     }
     
@@ -247,9 +247,9 @@ class PwdViewController: UIViewController {
                 let r = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
                 print(r)
                 if((r["success"]) != nil){
-                    print("验证码已发送")
+                    SCLAlertView().showSuccess("Success", subTitle: "验证码发送成功")
                 }else{
-                    print("验证码获取失败")
+                    SCLAlertView().showError("Error", subTitle: "验证码发送失败")
                 }
             } catch {
                 print("无法连接到服务器")
@@ -285,7 +285,7 @@ class PwdViewController: UIViewController {
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"
         // 设置要post的内容，字典格式
-        let postData = ["mobile":self.appDelegate.realMobile!, "password":self.pwdText?.md5(), "captcha":self.otpText]
+        let postData = ["mobile": (self.appDelegate.realMobile)!, "password": (self.pwdText?.md5())!, "captcha":(self.otpText)!]
         print("postdata: ",postData)
        
         let postString = postData.compactMap({ (key, value) -> String in
@@ -297,9 +297,9 @@ class PwdViewController: UIViewController {
                let r = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
                print(r)
                if((r["success"]) != nil){
-                   print("密码修改成功")
+                   SCLAlertView().showSuccess("Success", subTitle: "密码修改成功")
                }else{
-                   print("密码修改失败")
+                   SCLAlertView().showError("Error", subTitle: "密码修改失败")
                }
            } catch {
                print("无法连接到服务器")
