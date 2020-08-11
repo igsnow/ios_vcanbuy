@@ -15,7 +15,7 @@ class MenuViewController: UIViewController {
     var appDelegate = UIApplication.shared.delegate as! AppDelegate
     var prefix: String?
 
-    var titlesArray = ["用户条款", "我的钱包", "我的订单", "我的箱子", "我的优惠券", "切换语言", "修改密码"]
+    var titlesArray = ["ข้อตกลงและเงื่อนไขการใช้บริการ", "กระเป๋าเงินของฉัน", "รายการสั่งซื้อ", "ชำระค่าขนส่งรอบสอง", "คูปองของฉัน", "เปลี่ยนภาษ", "แก้ไขรหัสผ่าน"]
     var iconImageView: UIImageView?
     var thLabel: UILabel?
     var nameLabel: UILabel?
@@ -51,18 +51,18 @@ class MenuViewController: UIViewController {
 
         // 用户信息
         let greetLabel = UILabel(frame: CGRect(x: iconImageView.frame.maxX + 10, y: iconImageView.frame.origin.y, width: 200, height: 30))
-        greetLabel.text = "你好！"
+        greetLabel.text = "หวัดดี！"
         greetLabel.textColor = UIColor.white
         self.view.addSubview(greetLabel)
 
         let thLabel = UILabel(frame: CGRect(x: iconImageView.frame.maxX + 10, y: iconImageView.frame.origin.y + 25, width: 200, height: 30))
-        thLabel.text = "尊敬的用户"
+        thLabel.text = "THCode"
         thLabel.textColor = UIColor.white
         self.view.addSubview(thLabel)
         self.thLabel = thLabel
 
         let nameLabel = UILabel(frame: CGRect(x: iconImageView.frame.maxX + 10, y: iconImageView.frame.origin.y + 50, width: 200, height: 30))
-        nameLabel.text = "请先登录"
+        nameLabel.text = "เข้าสู่ระบบ"
         nameLabel.textColor = UIColor.white
         self.view.addSubview(nameLabel)
         self.nameLabel = nameLabel
@@ -130,7 +130,7 @@ class MenuViewController: UIViewController {
                 
             } catch {
                 DispatchQueue.main.async {
-                    SCLAlertView().showError("Error", subTitle: "系统错误")
+                    SCLAlertView().showError("Error", subTitle: "ข้อผิดพลาดของเครือข่าย")
                 }
                 return
             }
@@ -196,15 +196,15 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
             jump(path: "changeLanguage")
         } else if (indexPath.row == 6) {
             if (isLogin()) {
-//                alertMsg()
+                alertMsg()
                 
-                // 加密展示的手机号66-950607788 => 66-95****788
-               let startIndex = (self.mobile?.index(self.mobile!.startIndex, offsetBy: 6))!
-               let endIndex = self.mobile?.index(self.mobile!.startIndex, offsetBy: 8)
-               let secretMobile = self.mobile?.replacingCharacters(in: startIndex...endIndex!, with: "****")
-               appDelegate.secretMobile = secretMobile
-                appDelegate.realMobile = self.mobile
-                self.jump(path: "home", vc:PwdViewController())
+//                // 加密展示的手机号66-950607788 => 66-95****788
+//               let startIndex = (self.mobile?.index(self.mobile!.startIndex, offsetBy: 6))!
+//               let endIndex = self.mobile?.index(self.mobile!.startIndex, offsetBy: 8)
+//               let secretMobile = self.mobile?.replacingCharacters(in: startIndex...endIndex!, with: "****")
+//               appDelegate.secretMobile = secretMobile
+//                appDelegate.realMobile = self.mobile
+//                self.jump(path: "home", vc:PwdViewController())
 
             } else {
                 jump(path: "login")
@@ -239,10 +239,10 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
         let secretMobile = self.mobile?.replacingCharacters(in: startIndex...endIndex!, with: "****")
         appDelegate.secretMobile = secretMobile
         
-        let alertController = UIAlertController(title: "修改登录密码",
-                message: "将给手机" + secretMobile! + "发送验证码", preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        let okAction = UIAlertAction(title: "确定", style: .default, handler: {
+        let alertController = UIAlertController(title: "แก้ไขรหัสผ่าน",
+                message: "มอบให้" + secretMobile! + "กดรับรหัสยืนยัน", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "ยกเลิก", style: .cancel, handler: nil)
+        let okAction = UIAlertAction(title: "ยืนยัน", style: .default, handler: {
             action in
             self.sendMsg()
         })
@@ -279,17 +279,17 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
                 }else{
                     if(r["error_code"]! as! Int == 666){
                         DispatchQueue.main.async {
-                            SCLAlertView().showError("Error", subTitle: "请勿频繁操作")
+                            SCLAlertView().showError("Error", subTitle: "คุณได้ทำการกดรับรหัสยืนยันแล้ว กรุณาเช็ครหัสยืนยันที่ได้รับทางอีเมล์ ")
                         }
                         return
                     }
                     DispatchQueue.main.async {
-                        SCLAlertView().showError("Error", subTitle: "验证码发送失败")
+                        SCLAlertView().showError("Error", subTitle: "การตรวจสอบรหัสล้มเหลวในการส่ง")
                     }
                 }
             } catch {
                 DispatchQueue.main.async {
-                    SCLAlertView().showError("Error", subTitle: "系统错误")
+                    SCLAlertView().showError("Error", subTitle: "ข้อผิดพลาดของเครือข่าย")
                 }
                 return
             }

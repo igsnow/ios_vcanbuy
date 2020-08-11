@@ -32,10 +32,10 @@ class PwdViewController: UIViewController {
    
     var remainingSeconds: Int = 0 {
         willSet {
-            sendButton.setTitle("\(newValue)秒后重新发送", for: .normal)
+            sendButton.setTitle("\(newValue)กดรับอีกครั้ง", for: .normal)
            
             if newValue <= 0 {
-                sendButton.setTitle("重新发送", for: .normal)
+                sendButton.setTitle("ส่งรหัสยืนยันอีกครั้ง", for: .normal)
                 isCounting = false
             }
         }
@@ -46,7 +46,7 @@ class PwdViewController: UIViewController {
             if newValue {
                 countdownTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(PwdViewController.updateTime(_:)), userInfo: nil, repeats: true)
                 
-                remainingSeconds = 10
+                remainingSeconds = 60
                 
                 sendButton.backgroundColor = UIColor.gray
             } else {
@@ -97,7 +97,7 @@ class PwdViewController: UIViewController {
                                           width: CGFloat(frame.size.width),
                                           height: 50))
         
-        titleLabel.text = "修改密码"
+        titleLabel.text = "แก้ไขรหัสผ่าน"
         titleLabel.textColor = UIColor.black
         titleLabel.font = UIFont(name: "TimesNewRomanPSMT", size: 20)
         titleLabel.textAlignment = .center
@@ -108,14 +108,14 @@ class PwdViewController: UIViewController {
         sendButton.backgroundColor = UIColor.orange
         sendButton.setTitleColor(UIColor.white, for: .normal)
         sendButton.titleLabel?.font = UIFont.systemFont(ofSize: 14)
-        sendButton.setTitle("重新发送", for: .normal)
+        sendButton.setTitle("ส่งรหัสยืนยันอีกครั้ง", for: .normal)
         sendButton.addTarget(self, action: #selector(PwdViewController.sendButtonClick(_:)), for: .touchUpInside)
         
         self.view.addSubview(sendButton)
         
         let otpField = UITextField(frame: CGRect(x:15, y:120, width:frame.width - 165, height:55))
         otpField.borderStyle = UITextField.BorderStyle.line
-        otpField.placeholder="请输入验证码"
+        otpField.placeholder="กรุณาป้อนรหัสยืนยัน"
         otpField.adjustsFontSizeToFitWidth=true  //当文字超出文本框宽度时，自动调整文字大小
         otpField.minimumFontSize=14  //最小可缩小的字号
         otpField.textAlignment = .left //水平居中对齐
@@ -129,7 +129,7 @@ class PwdViewController: UIViewController {
        
         let pwdField = UITextField(frame: CGRect(x:15, y:185, width:frame.width - 30, height:55))
         pwdField.borderStyle = UITextField.BorderStyle.line
-        pwdField.placeholder="请输入新密码"
+        pwdField.placeholder="รหัสผ่าน(รหัสผ่านต้องมีความยาว 6-20 ตัวอักษร)"
         pwdField.adjustsFontSizeToFitWidth=true
         pwdField.minimumFontSize=14
         pwdField.textAlignment = .left
@@ -145,7 +145,7 @@ class PwdViewController: UIViewController {
         confirmButton.backgroundColor = UIColor.orange
         confirmButton.setTitleColor(UIColor.white, for: .normal)
         confirmButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
-        confirmButton.setTitle("确认修改", for: .normal)
+        confirmButton.setTitle("ตกลง", for: .normal)
         confirmButton.alpha = 0.5
         confirmButton.isEnabled = false
         confirmButton.addTarget(self, action: #selector(PwdViewController.confirmButtonClick), for: .touchUpInside)
@@ -157,7 +157,7 @@ class PwdViewController: UIViewController {
                                           width: CGFloat(frame.size.width),
                                           height: 50))
         mobileTip = appDelegate.secretMobile
-        tipLabel.text = "已向手机 " + mobileTip! + " 发送验证码"
+        tipLabel.text = "ไปยัง " + mobileTip! + " กดรับรหัสยืนยัน"
         tipLabel.textColor = UIColor.gray
         tipLabel.font = UIFont(name: "ArialUnicodeMS", size: 15)
         tipLabel.textAlignment = .center
@@ -214,16 +214,11 @@ class PwdViewController: UIViewController {
             if(v2){
                 rewritePwd()
             }else{
-                SCLAlertView().showError("Error", subTitle: "密码格式不正确")
+                SCLAlertView().showError("Error", subTitle: "กรอกได้เฉพาะ A-Z , a-z, 0-9 เท่านั้น")
             }
         }else{
-            SCLAlertView().showError("Error", subTitle: "验证码格式不正确")
+            SCLAlertView().showError("Error", subTitle: "จะเป็นเลขรหัสการตรวจสอบ 4")
         }
-    }
-    
-    //  第一个按钮点击事件相应
-    @objc func firstButtonTapped() {
-        print("第一个按钮点击")
     }
     
     // 发送验证码
@@ -247,22 +242,22 @@ class PwdViewController: UIViewController {
                 print(r)
                 if(r["success"]! as! Bool == true){
                     DispatchQueue.main.async {
-                        SCLAlertView().showSuccess("Success", subTitle: "验证码发送成功")
+                        SCLAlertView().showSuccess("Success", subTitle: "ส่งรหัสยืนยันเรียบร้อย")
                     }
                 }else{
                     if(r["error_code"]! as! Int == 666){
                         DispatchQueue.main.async {
-                            SCLAlertView().showError("Error", subTitle: "请勿频繁操作")
+                            SCLAlertView().showError("Error", subTitle: "คุณได้ทำการกดรับรหัสยืนยันแล้ว กรุณาเช็ครหัสยืนยันที่ได้รับทางอีเมล์ ")
                         }
                         return
                     }
                     DispatchQueue.main.async {
-                        SCLAlertView().showError("Error", subTitle: "验证码发送失败")
+                        SCLAlertView().showError("Error", subTitle: "การตรวจสอบรหัสล้มเหลวในการส่ง")
                     }
                 }
             } catch {
                 DispatchQueue.main.async {
-                    SCLAlertView().showError("Error", subTitle: "系统错误")
+                    SCLAlertView().showError("Error", subTitle: "ข้อผิดพลาดของเครือข่าย")
                 }
                 return
             }
@@ -313,22 +308,22 @@ class PwdViewController: UIViewController {
                                 self.appDelegate.value = "mine"
                                 self.appDelegate.window?.rootViewController = RootViewController()
                             }
-                            alertView.showSuccess("Success", subTitle: "密码修改成功", closeButtonTitle: "Cancel")
+                            alertView.showSuccess("Success", subTitle: "แก้ไขสำเร็จ", closeButtonTitle: "Cancel")
                         }
                     }else{
                         if(r["error_code"]! as! Int == 10100004){
                             DispatchQueue.main.async {
-                                SCLAlertView().showError("Error", subTitle: "验证码不正确或已过期")
+                                SCLAlertView().showError("Error", subTitle: "รหัสยืนยันไม่ถูกต้องหรือรหัสหมดอายุ")
                             }
                             return
                         }
                         DispatchQueue.main.async {
-                            SCLAlertView().showError("Error", subTitle: "密码修改失败")
+                            SCLAlertView().showError("Error", subTitle: "แก้ไขไม่สำเร็จ")
                         }
                     }
            } catch {
                 DispatchQueue.main.async {
-                    SCLAlertView().showError("Error", subTitle: "系统错误")
+                    SCLAlertView().showError("Error", subTitle: "ข้อผิดพลาดของเครือข่าย")
                 }
                 return
            }
