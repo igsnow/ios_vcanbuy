@@ -291,7 +291,7 @@ class PwdViewController: UIViewController {
         // 设置要post的内容，字典格式
         let postData = ["mobile": (self.appDelegate.realMobile)!, "password": (self.pwdText?.md5())!, "captcha":(self.otpText)!]
         print("postdata: ",postData)
-       
+        
         let postString = postData.compactMap({ (key, value) -> String in
             return "\(key)=\(String(describing: value))"
         }).joined(separator: "&")

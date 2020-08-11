@@ -238,6 +238,8 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
         let endIndex = self.mobile?.index(self.mobile!.startIndex, offsetBy: 8)
         let secretMobile = self.mobile?.replacingCharacters(in: startIndex...endIndex!, with: "****")
         appDelegate.secretMobile = secretMobile
+        appDelegate.realMobile = self.mobile
+
         
         let alertController = UIAlertController(title: "แก้ไขรหัสผ่าน",
                 message: "มอบให้" + secretMobile! + "กดรับรหัสยืนยัน", preferredStyle: .alert)
