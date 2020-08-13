@@ -72,7 +72,7 @@ class PwdViewController: UIViewController {
         if (appDelegate.isDev) {
             prefix = "http://120.27.228.29:8081"
         } else {
-            prefix = "http://m.vcanbuy.com"
+            prefix = "https://m.vcanbuy.com"
         }
         
         // 进入页面，60s倒计时开始

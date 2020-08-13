@@ -30,7 +30,7 @@ class MenuViewController: UIViewController {
         if (appDelegate.isDev) {
             prefix = "http://120.27.228.29:8081"
         } else {
-            prefix = "http://m.vcanbuy.com"
+            prefix = "https://m.vcanbuy.com"
         }
 
         self.view.backgroundColor = UIColor.orange
@@ -130,7 +130,7 @@ class MenuViewController: UIViewController {
                 
             } catch {
                 DispatchQueue.main.async {
-                    SCLAlertView().showError("Error", subTitle: "ข้อผิดพลาดของเครือข่าย")
+                    SCLAlertView().showError("Error", subTitle: "ข้อผิดพลาดของเครือข่าย222")
                 }
                 return
             }
