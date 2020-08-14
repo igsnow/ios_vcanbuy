@@ -15,7 +15,8 @@ class MenuViewController: UIViewController {
     var appDelegate = UIApplication.shared.delegate as! AppDelegate
     var prefix: String?
 
-    var titlesArray = ["ข้อตกลงและเงื่อนไขการใช้บริการ", "กระเป๋าเงินของฉัน", "รายการสั่งซื้อ", "ชำระค่าขนส่งรอบสอง", "คูปองของฉัน", "เปลี่ยนภาษ", "แก้ไขรหัสผ่าน"]
+    var titlesArray = ["หน้าหลัก", "ข้อตกลงและเงื่อนไขการใช้บริการ", "กระเป๋าเงินของฉัน", "รายการสั่งซื้อ",
+        "ชำระค่าขนส่งรอบสอง", "คูปองของฉัน", "เปลี่ยนภาษ", "แก้ไขรหัสผ่าน"]
     var iconImageView: UIImageView?
     var thLabel: UILabel?
     var nameLabel: UILabel?
@@ -166,35 +167,37 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
 
     // UITableViewDelegate方法，可选
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 0 {
-            jump(path: "home", vc: HelpViewController())
+        if (indexPath.row == 0) {
+            jump(path: "home")
         } else if (indexPath.row == 1) {
+            jump(path: "home", vc: HelpViewController())
+        } else if (indexPath.row == 2) {
             if (isLogin()) {
                 jump(path: "myWallet")
             } else {
                 jump(path: "login")
             }
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row == 3) {
             if (isLogin()) {
                 jump(path: "orderListOwn")
             } else {
                 jump(path: "login")
             }
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 4) {
             if (isLogin()) {
                 jump(path: "orderListAgent")
             } else {
                 jump(path: "login")
             }
-        } else if (indexPath.row == 4) {
+        } else if (indexPath.row == 5) {
             if (isLogin()) {
                 jump(path: "myCoupon")
             } else {
                 jump(path: "login")
             }
-        } else if (indexPath.row == 5) {
-            jump(path: "changeLanguage")
         } else if (indexPath.row == 6) {
+            jump(path: "changeLanguage")
+        } else if (indexPath.row == 7) {
             if (isLogin()) {
                 alertMsg()
                 
