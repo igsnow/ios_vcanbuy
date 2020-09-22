@@ -151,9 +151,9 @@ class ViewController: UIViewController, WKUIDelegate ,WKNavigationDelegate, WKSc
     
     // 防止userContentController内存泄漏
     deinit {
-        webView.configuration.userContentController.removeScriptMessageHandler(forName: "deleteClipboardRecord")
-        webView.configuration.userContentController.removeScriptMessageHandler(forName: "postSessionId")
-        webView.configuration.userContentController.removeScriptMessageHandler(forName: "deleteSessionId")
+//        webView.configuration.userContentController.removeScriptMessageHandler(forName: "deleteClipboardRecord")
+//        webView.configuration.userContentController.removeScriptMessageHandler(forName: "postSessionId")
+//        webView.configuration.userContentController.removeScriptMessageHandler(forName: "deleteSessionId")
     }
     
     // 去除webview缓存
